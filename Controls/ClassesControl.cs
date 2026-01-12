@@ -33,12 +33,19 @@ namespace GymApp_final.Controls
 
         private void LoadClasses()
         {
-            _classes = JsonFile.Load<FitnessClass>("classes.json");
-            gridClasses.DataSource = null;
-            gridClasses.DataSource = _classes;
+            try
+            {
+                _classes = JsonFile.Load<FitnessClass>("classes.json");
+                gridClasses.DataSource = null;
+                gridClasses.DataSource = _classes;
 
-            if (gridClasses.Columns.Contains("Id"))
-                gridClasses.Columns["Id"].Visible = false;
+                if (gridClasses.Columns.Contains("Id"))
+                    gridClasses.Columns["Id"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la încărcarea claselor:\n" + ex.Message);
+            }
         }
 
         private FitnessClass? SelectedClass()
@@ -58,95 +65,116 @@ namespace GymApp_final.Controls
 
         private void AddClass()
         {
-            var title = txtClassTitle.Text.Trim();
-            if (string.IsNullOrWhiteSpace(title))
+            try
             {
-                MessageBox.Show("Titlul nu poate fi gol.");
-                return;
+                var title = txtClassTitle.Text.Trim();
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    MessageBox.Show("Titlul nu poate fi gol.");
+                    return;
+                }
+
+                var trainer = txtTrainer.Text.Trim();
+                if (string.IsNullOrWhiteSpace(trainer))
+                {
+                    MessageBox.Show("Antrenorul nu poate fi gol.");
+                    return;
+                }
+
+                _classes.Add(new FitnessClass
+                {
+                    Id = Guid.NewGuid(),
+                    Title = title,
+                    Trainer = trainer,
+                    DurationMinutes = (int)numDuration.Value,
+                    Capacity = (int)numCapacity.Value,
+                    StartTime = dtpStartTime.Value
+                });
+
+                JsonFile.Save("classes.json", _classes);
+                LoadClasses();
+
+                txtClassTitle.Clear();
+                txtTrainer.Clear();
+                numDuration.Value = numDuration.Minimum;
+                numCapacity.Value = numCapacity.Minimum;
+                dtpStartTime.Value = DateTime.Now;
             }
-
-            var trainer = txtTrainer.Text.Trim();
-            if (string.IsNullOrWhiteSpace(trainer))
+            catch (Exception ex)
             {
-                MessageBox.Show("Antrenorul nu poate fi gol.");
-                return;
+                MessageBox.Show("Eroare la adăugarea clasei:\n" + ex.Message);
             }
-
-            _classes.Add(new FitnessClass
-            {
-                Id = Guid.NewGuid(),
-                Title = title,
-                Trainer = trainer,
-                DurationMinutes = (int)numDuration.Value,
-                Capacity = (int)numCapacity.Value,
-                StartTime = dtpStartTime.Value
-            });
-
-            JsonFile.Save("classes.json", _classes);
-            LoadClasses();
-
-            txtClassTitle.Clear();
-            txtTrainer.Clear();
-            numDuration.Value = numDuration.Minimum;
-            numCapacity.Value = numCapacity.Minimum;
-            dtpStartTime.Value = DateTime.Now;
         }
 
         private void UpdateClass()
         {
-            var selected = SelectedClass();
-            if (selected == null)
+            try
             {
-                MessageBox.Show("Selectează o clasă din listă.");
-                return;
-            }
+                var selected = SelectedClass();
+                if (selected == null)
+                {
+                    MessageBox.Show("Selectează o clasă din listă.");
+                    return;
+                }
 
-            var title = txtClassTitle.Text.Trim();
-            if (string.IsNullOrWhiteSpace(title))
+                var title = txtClassTitle.Text.Trim();
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    MessageBox.Show("Titlul nu poate fi gol.");
+                    return;
+                }
+
+                var trainer = txtTrainer.Text.Trim();
+                if (string.IsNullOrWhiteSpace(trainer))
+                {
+                    MessageBox.Show("Antrenorul nu poate fi gol.");
+                    return;
+                }
+
+                selected.Title = title;
+                selected.Trainer = trainer;
+                selected.DurationMinutes = (int)numDuration.Value;
+                selected.Capacity = (int)numCapacity.Value;
+                selected.StartTime = dtpStartTime.Value;
+
+                JsonFile.Save("classes.json", _classes);
+                LoadClasses();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Titlul nu poate fi gol.");
-                return;
+                MessageBox.Show("Eroare la modificarea clasei:\n" + ex.Message);
             }
-
-            var trainer = txtTrainer.Text.Trim();
-            if (string.IsNullOrWhiteSpace(trainer))
-            {
-                MessageBox.Show("Antrenorul nu poate fi gol.");
-                return;
-            }
-
-            selected.Title = title;
-            selected.Trainer = trainer;
-            selected.DurationMinutes = (int)numDuration.Value;
-            selected.Capacity = (int)numCapacity.Value;
-            selected.StartTime = dtpStartTime.Value;
-
-            JsonFile.Save("classes.json", _classes);
-            LoadClasses();
         }
 
         private void DeleteClass()
         {
-            var selected = SelectedClass();
-            if (selected == null)
+            try
             {
-                MessageBox.Show("Selectează o clasă din listă.");
-                return;
+                var selected = SelectedClass();
+                if (selected == null)
+                {
+                    MessageBox.Show("Selectează o clasă din listă.");
+                    return;
+                }
+
+                if (MessageBox.Show("Sigur vrei să ștergi clasa?",
+                    "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
+                _classes.RemoveAll(c => c.Id == selected.Id);
+                JsonFile.Save("classes.json", _classes);
+                LoadClasses();
+
+                txtClassTitle.Clear();
+                txtTrainer.Clear();
+                numDuration.Value = numDuration.Minimum;
+                numCapacity.Value = numCapacity.Minimum;
+                dtpStartTime.Value = DateTime.Now;
             }
-
-            if (MessageBox.Show("Sigur vrei să ștergi clasa?",
-                "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                return;
-
-            _classes.RemoveAll(c => c.Id == selected.Id);
-            JsonFile.Save("classes.json", _classes);
-            LoadClasses();
-
-            txtClassTitle.Clear();
-            txtTrainer.Clear();
-            numDuration.Value = numDuration.Minimum;
-            numCapacity.Value = numCapacity.Minimum;
-            dtpStartTime.Value = DateTime.Now;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la ștergerea clasei:\n" + ex.Message);
+            }
         }
     }
 }

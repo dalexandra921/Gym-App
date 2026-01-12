@@ -32,12 +32,19 @@ namespace GymApp_final.Controls
 
         private void LoadPlans()
         {
-            _plans = JsonFile.Load<SubscriptionPlan>("plans.json");
-            gridPlans.DataSource = null;
-            gridPlans.DataSource = _plans;
+            try
+            {
+                _plans = JsonFile.Load<SubscriptionPlan>("plans.json");
+                gridPlans.DataSource = null;
+                gridPlans.DataSource = _plans;
 
-            if (gridPlans.Columns.Contains("Id"))
-                gridPlans.Columns["Id"].Visible = false; //ascunde id-ul
+                if (gridPlans.Columns.Contains("Id"))
+                    gridPlans.Columns["Id"].Visible = false; //ascunzi id-u;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la încărcarea abonamentelor:\n" + ex.Message);
+            }
         }
 
         private SubscriptionPlan? SelectedPlan()
@@ -55,80 +62,97 @@ namespace GymApp_final.Controls
 
         private void AddPlan()
         {
-            var name = txtPlanName.Text.Trim();
-            if (string.IsNullOrWhiteSpace(name))
+            try
             {
-                MessageBox.Show("Numele nu poate fi gol.");
-                return;
+                var name = txtPlanName.Text.Trim();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    MessageBox.Show("Numele nu poate fi gol.");
+                    return;
+                }
+
+                _plans.Add(new SubscriptionPlan
+                {
+                    Id = Guid.NewGuid(),
+                    Name = name,
+                    Price = numPlanPrice.Value,
+                    Description = txtPlanDesc.Text.Trim()
+                });
+
+                JsonFile.Save("plans.json", _plans);
+                LoadPlans();
+
+                txtPlanName.Clear();
+                numPlanPrice.Value = 0;
+                txtPlanDesc.Clear();
             }
-
-            _plans.Add(new SubscriptionPlan
+            catch (Exception ex)
             {
-                Id = Guid.NewGuid(),
-                Name = name,
-                Price = numPlanPrice.Value,
-                Description = txtPlanDesc.Text.Trim()
-            });
-
-            JsonFile.Save("plans.json", _plans);
-            LoadPlans();
-
-            txtPlanName.Clear();
-            numPlanPrice.Value = 0;
-            txtPlanDesc.Clear();
+                MessageBox.Show("Eroare la adăugare:\n" + ex.Message);
+            }
 
         }
 
         private void UpdatePlan()
         {
-            var selected = SelectedPlan();
-            if (selected == null)
+            try
             {
-                MessageBox.Show("Selectează un abonament din listă.");
-                return;
-            }
+                var selected = SelectedPlan();
+                if (selected == null)
+                {
+                    MessageBox.Show("Selectează un abonament din listă.");
+                    return;
+                }
 
-            var name = txtPlanName.Text.Trim();
-            if (string.IsNullOrWhiteSpace(name))
+                var name = txtPlanName.Text.Trim();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    MessageBox.Show("Numele nu poate fi gol.");
+                    return;
+                }
+
+                selected.Name = name;
+                selected.Price = numPlanPrice.Value;
+                selected.Description = txtPlanDesc.Text.Trim();
+
+                JsonFile.Save("plans.json", _plans);
+                LoadPlans();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Numele nu poate fi gol.");
-                return;
+                MessageBox.Show("Eroare la modificare:\n" + ex.Message);
             }
-
-            selected.Name = name;
-            selected.Price = numPlanPrice.Value;
-            selected.Description = txtPlanDesc.Text.Trim();
-
-            JsonFile.Save("plans.json", _plans);
-            LoadPlans();
-
-            txtPlanName.Clear();
-            numPlanPrice.Value = 0;
-            txtPlanDesc.Clear();
 
         }
 
 
         private void DeletePlan()
         {
-            var selected = SelectedPlan();
-            if (selected == null)
+            try
             {
-                MessageBox.Show("Selectează un abonament din listă.");
-                return;
+                var selected = SelectedPlan();
+                if (selected == null)
+                {
+                    MessageBox.Show("Selectează un abonament din listă.");
+                    return;
+                }
+
+                if (MessageBox.Show("Sigur vrei să ștergi abonamentul?",
+                    "Confirmare", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    return;
+
+                _plans.RemoveAll(p => p.Id == selected.Id);
+                JsonFile.Save("plans.json", _plans);
+                LoadPlans();
+
+                txtPlanName.Clear();
+                numPlanPrice.Value = 0;
+                txtPlanDesc.Clear();
             }
-
-            if (MessageBox.Show("Sigur vrei să ștergi abonamentul?",
-                "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                return;
-
-            _plans.RemoveAll(p => p.Id == selected.Id);
-            JsonFile.Save("plans.json", _plans);
-            LoadPlans();
-
-            txtPlanName.Clear();
-            numPlanPrice.Value = 0;
-            txtPlanDesc.Clear();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la ștergere:\n" + ex.Message);
+            }
         }
 
     }
