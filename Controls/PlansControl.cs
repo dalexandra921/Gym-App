@@ -35,6 +35,9 @@ namespace GymApp_final.Controls
             _plans = JsonFile.Load<SubscriptionPlan>("plans.json");
             gridPlans.DataSource = null;
             gridPlans.DataSource = _plans;
+
+            if (gridPlans.Columns.Contains("Id"))
+                gridPlans.Columns["Id"].Visible = false; //ascunde id-ul
         }
 
         private SubscriptionPlan? SelectedPlan()
@@ -69,6 +72,11 @@ namespace GymApp_final.Controls
 
             JsonFile.Save("plans.json", _plans);
             LoadPlans();
+
+            txtPlanName.Clear();
+            numPlanPrice.Value = 0;
+            txtPlanDesc.Clear();
+
         }
 
         private void UpdatePlan()
@@ -80,13 +88,26 @@ namespace GymApp_final.Controls
                 return;
             }
 
-            selected.Name = txtPlanName.Text.Trim();
+            var name = txtPlanName.Text.Trim();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Numele nu poate fi gol.");
+                return;
+            }
+
+            selected.Name = name;
             selected.Price = numPlanPrice.Value;
             selected.Description = txtPlanDesc.Text.Trim();
 
             JsonFile.Save("plans.json", _plans);
             LoadPlans();
+
+            txtPlanName.Clear();
+            numPlanPrice.Value = 0;
+            txtPlanDesc.Clear();
+
         }
+
 
         private void DeletePlan()
         {
@@ -97,9 +118,18 @@ namespace GymApp_final.Controls
                 return;
             }
 
+            if (MessageBox.Show("Sigur vrei să ștergi abonamentul?",
+                "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
             _plans.RemoveAll(p => p.Id == selected.Id);
             JsonFile.Save("plans.json", _plans);
             LoadPlans();
+
+            txtPlanName.Clear();
+            numPlanPrice.Value = 0;
+            txtPlanDesc.Clear();
         }
+
     }
 }

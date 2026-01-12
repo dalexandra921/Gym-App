@@ -30,10 +30,12 @@
         {
             tabAdmin = new TabControl();
             tabPlans = new TabPage();
-            tabClasses = new TabPage();
             PlansControl = new GymApp_final.Controls.PlansControl();
+            tabClasses = new TabPage();
+            classesControl1 = new GymApp_final.Controls.ClassesControl();
             tabAdmin.SuspendLayout();
             tabPlans.SuspendLayout();
+            tabClasses.SuspendLayout();
             SuspendLayout();
             // 
             // tabAdmin
@@ -58,8 +60,17 @@
             tabPlans.Text = "Abonamente";
             tabPlans.UseVisualStyleBackColor = true;
             // 
+            // PlansControl
+            // 
+            PlansControl.Dock = DockStyle.Fill;
+            PlansControl.Location = new Point(3, 3);
+            PlansControl.Name = "PlansControl";
+            PlansControl.Size = new Size(786, 475);
+            PlansControl.TabIndex = 0;
+            // 
             // tabClasses
             // 
+            tabClasses.Controls.Add(classesControl1);
             tabClasses.Location = new Point(4, 29);
             tabClasses.Name = "tabClasses";
             tabClasses.Padding = new Padding(3);
@@ -68,13 +79,13 @@
             tabClasses.Text = "Clase";
             tabClasses.UseVisualStyleBackColor = true;
             // 
-            // PlansControl
+            // classesControl1
             // 
-            PlansControl.Dock = DockStyle.Fill;
-            PlansControl.Location = new Point(3, 3);
-            PlansControl.Name = "PlansControl";
-            PlansControl.Size = new Size(786, 475);
-            PlansControl.TabIndex = 0;
+            classesControl1.Dock = DockStyle.Fill;
+            classesControl1.Location = new Point(3, 3);
+            classesControl1.Name = "classesControl1";
+            classesControl1.Size = new Size(786, 475);
+            classesControl1.TabIndex = 0;
             // 
             // AdminForm
             // 
@@ -88,6 +99,7 @@
             Load += AdminForm_Load;
             tabAdmin.ResumeLayout(false);
             tabPlans.ResumeLayout(false);
+            tabClasses.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -97,5 +109,6 @@
         private TabPage tabPlans;
         private TabPage tabClasses;
         private Controls.PlansControl PlansControl;
+        private Controls.ClassesControl classesControl1;
     }
 }

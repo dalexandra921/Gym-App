@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="classes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="plans.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
