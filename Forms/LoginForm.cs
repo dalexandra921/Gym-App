@@ -42,7 +42,7 @@ namespace GymApp_final
             }
             else
             {
-                var f = new ClientForm();
+                var f = new ClientForm(acc);
                 f.FormClosed += (_, __) => this.Close();
                 f.Show();
                 this.Hide();
