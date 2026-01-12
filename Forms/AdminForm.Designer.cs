@@ -28,19 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
+            tabAdmin = new TabControl();
+            tabPlans = new TabPage();
+            tabClasses = new TabPage();
+            PlansControl = new GymApp_final.Controls.PlansControl();
+            tabAdmin.SuspendLayout();
+            tabPlans.SuspendLayout();
             SuspendLayout();
+            // 
+            // tabAdmin
+            // 
+            tabAdmin.Controls.Add(tabPlans);
+            tabAdmin.Controls.Add(tabClasses);
+            tabAdmin.Dock = DockStyle.Fill;
+            tabAdmin.Location = new Point(0, 0);
+            tabAdmin.Name = "tabAdmin";
+            tabAdmin.SelectedIndex = 0;
+            tabAdmin.Size = new Size(800, 514);
+            tabAdmin.TabIndex = 0;
+            // 
+            // tabPlans
+            // 
+            tabPlans.Controls.Add(PlansControl);
+            tabPlans.Location = new Point(4, 29);
+            tabPlans.Name = "tabPlans";
+            tabPlans.Padding = new Padding(3);
+            tabPlans.Size = new Size(792, 481);
+            tabPlans.TabIndex = 0;
+            tabPlans.Text = "Abonamente";
+            tabPlans.UseVisualStyleBackColor = true;
+            // 
+            // tabClasses
+            // 
+            tabClasses.Location = new Point(4, 29);
+            tabClasses.Name = "tabClasses";
+            tabClasses.Padding = new Padding(3);
+            tabClasses.Size = new Size(792, 481);
+            tabClasses.TabIndex = 1;
+            tabClasses.Text = "Clase";
+            tabClasses.UseVisualStyleBackColor = true;
+            // 
+            // PlansControl
+            // 
+            PlansControl.Dock = DockStyle.Fill;
+            PlansControl.Location = new Point(3, 3);
+            PlansControl.Name = "PlansControl";
+            PlansControl.Size = new Size(786, 475);
+            PlansControl.TabIndex = 0;
             // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 514);
+            Controls.Add(tabAdmin);
             Name = "AdminForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin";
+            Load += AdminForm_Load;
+            tabAdmin.ResumeLayout(false);
+            tabPlans.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
+
+        private TabControl tabAdmin;
+        private TabPage tabPlans;
+        private TabPage tabClasses;
+        private Controls.PlansControl PlansControl;
     }
 }

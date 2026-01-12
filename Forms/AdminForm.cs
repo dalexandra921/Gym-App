@@ -16,5 +16,10 @@ namespace GymApp_final
         {
             InitializeComponent();
         }
+        
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

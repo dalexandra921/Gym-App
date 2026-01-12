@@ -26,5 +26,12 @@ namespace GymApp_final.Data
                 return new List<T>();
             }
         }
+        public static void Save<T>(string fileName, List<T> data)
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, fileName);
+            var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(path, json);
+        }
+
     }
 }
