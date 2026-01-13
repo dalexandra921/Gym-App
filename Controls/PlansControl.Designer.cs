@@ -30,19 +30,24 @@
         {
             gridPlans = new DataGridView();
             panelEdit = new Panel();
-            lblPlanName = new Label();
-            lblPlanPrice = new Label();
-            numPlanPrice = new NumericUpDown();
-            txtPlanName = new TextBox();
-            lblPlanDescription = new Label();
-            txtPlanDesc = new TextBox();
-            btnAddPlan = new Button();
-            btnUpdatePlan = new Button();
-            btnDeletePlan = new Button();
+            lblAccessType = new Label();
+            cmbPlanAccess = new ComboBox();
             btnRefreshPlans = new Button();
+            btnDeletePlan = new Button();
+            btnUpdatePlan = new Button();
+            btnAddPlan = new Button();
+            txtPlanDesc = new TextBox();
+            lblPlanDescription = new Label();
+            txtPlanName = new TextBox();
+            numPlanPrice = new NumericUpDown();
+            lblPlanPrice = new Label();
+            lblPlanName = new Label();
+            numValidDays = new NumericUpDown();
+            lblValidDays = new Label();
             ((System.ComponentModel.ISupportInitialize)gridPlans).BeginInit();
             panelEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numPlanPrice).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numValidDays).BeginInit();
             SuspendLayout();
             // 
             // gridPlans
@@ -62,6 +67,10 @@
             // 
             // panelEdit
             // 
+            panelEdit.Controls.Add(lblValidDays);
+            panelEdit.Controls.Add(numValidDays);
+            panelEdit.Controls.Add(lblAccessType);
+            panelEdit.Controls.Add(cmbPlanAccess);
             panelEdit.Controls.Add(btnRefreshPlans);
             panelEdit.Controls.Add(btnDeletePlan);
             panelEdit.Controls.Add(btnUpdatePlan);
@@ -78,75 +87,33 @@
             panelEdit.Size = new Size(786, 378);
             panelEdit.TabIndex = 1;
             // 
-            // lblPlanName
+            // lblAccessType
             // 
-            lblPlanName.AutoSize = true;
-            lblPlanName.Location = new Point(22, 36);
-            lblPlanName.Name = "lblPlanName";
-            lblPlanName.Size = new Size(49, 20);
-            lblPlanName.TabIndex = 0;
-            lblPlanName.Text = "Nume";
+            lblAccessType.AutoSize = true;
+            lblAccessType.Location = new Point(22, 225);
+            lblAccessType.Name = "lblAccessType";
+            lblAccessType.Size = new Size(70, 20);
+            lblAccessType.TabIndex = 11;
+            lblAccessType.Text = "Tip acces";
             // 
-            // lblPlanPrice
+            // cmbPlanAccess
             // 
-            lblPlanPrice.AutoSize = true;
-            lblPlanPrice.Location = new Point(22, 87);
-            lblPlanPrice.Name = "lblPlanPrice";
-            lblPlanPrice.Size = new Size(35, 20);
-            lblPlanPrice.TabIndex = 1;
-            lblPlanPrice.Text = "Preț";
+            cmbPlanAccess.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPlanAccess.FormattingEnabled = true;
+            cmbPlanAccess.Items.AddRange(new object[] { "Standard", "VIP" });
+            cmbPlanAccess.Location = new Point(146, 222);
+            cmbPlanAccess.Name = "cmbPlanAccess";
+            cmbPlanAccess.Size = new Size(300, 28);
+            cmbPlanAccess.TabIndex = 10;
             // 
-            // numPlanPrice
+            // btnRefreshPlans
             // 
-            numPlanPrice.DecimalPlaces = 2;
-            numPlanPrice.Location = new Point(145, 80);
-            numPlanPrice.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            numPlanPrice.Name = "numPlanPrice";
-            numPlanPrice.Size = new Size(301, 27);
-            numPlanPrice.TabIndex = 2;
-            // 
-            // txtPlanName
-            // 
-            txtPlanName.Location = new Point(145, 33);
-            txtPlanName.Name = "txtPlanName";
-            txtPlanName.Size = new Size(301, 27);
-            txtPlanName.TabIndex = 3;
-            // 
-            // lblPlanDescription
-            // 
-            lblPlanDescription.AutoSize = true;
-            lblPlanDescription.Location = new Point(22, 141);
-            lblPlanDescription.Name = "lblPlanDescription";
-            lblPlanDescription.Size = new Size(71, 20);
-            lblPlanDescription.TabIndex = 4;
-            lblPlanDescription.Text = "Descriere";
-            // 
-            // txtPlanDesc
-            // 
-            txtPlanDesc.Location = new Point(146, 138);
-            txtPlanDesc.Multiline = true;
-            txtPlanDesc.Name = "txtPlanDesc";
-            txtPlanDesc.ScrollBars = ScrollBars.Vertical;
-            txtPlanDesc.Size = new Size(300, 60);
-            txtPlanDesc.TabIndex = 5;
-            // 
-            // btnAddPlan
-            // 
-            btnAddPlan.Location = new Point(536, 31);
-            btnAddPlan.Name = "btnAddPlan";
-            btnAddPlan.Size = new Size(94, 29);
-            btnAddPlan.TabIndex = 6;
-            btnAddPlan.Text = "Add";
-            btnAddPlan.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdatePlan
-            // 
-            btnUpdatePlan.Location = new Point(536, 80);
-            btnUpdatePlan.Name = "btnUpdatePlan";
-            btnUpdatePlan.Size = new Size(94, 29);
-            btnUpdatePlan.TabIndex = 7;
-            btnUpdatePlan.Text = "Update";
-            btnUpdatePlan.UseVisualStyleBackColor = true;
+            btnRefreshPlans.Location = new Point(536, 189);
+            btnRefreshPlans.Name = "btnRefreshPlans";
+            btnRefreshPlans.Size = new Size(94, 29);
+            btnRefreshPlans.TabIndex = 9;
+            btnRefreshPlans.Text = "Refresh";
+            btnRefreshPlans.UseVisualStyleBackColor = true;
             // 
             // btnDeletePlan
             // 
@@ -157,14 +124,94 @@
             btnDeletePlan.Text = "Delete";
             btnDeletePlan.UseVisualStyleBackColor = true;
             // 
-            // btnRefreshPlans
+            // btnUpdatePlan
             // 
-            btnRefreshPlans.Location = new Point(536, 189);
-            btnRefreshPlans.Name = "btnRefreshPlans";
-            btnRefreshPlans.Size = new Size(94, 29);
-            btnRefreshPlans.TabIndex = 9;
-            btnRefreshPlans.Text = "Refresh";
-            btnRefreshPlans.UseVisualStyleBackColor = true;
+            btnUpdatePlan.Location = new Point(536, 80);
+            btnUpdatePlan.Name = "btnUpdatePlan";
+            btnUpdatePlan.Size = new Size(94, 29);
+            btnUpdatePlan.TabIndex = 7;
+            btnUpdatePlan.Text = "Update";
+            btnUpdatePlan.UseVisualStyleBackColor = true;
+            // 
+            // btnAddPlan
+            // 
+            btnAddPlan.Location = new Point(536, 31);
+            btnAddPlan.Name = "btnAddPlan";
+            btnAddPlan.Size = new Size(94, 29);
+            btnAddPlan.TabIndex = 6;
+            btnAddPlan.Text = "Add";
+            btnAddPlan.UseVisualStyleBackColor = true;
+            // 
+            // txtPlanDesc
+            // 
+            txtPlanDesc.Location = new Point(146, 138);
+            txtPlanDesc.Multiline = true;
+            txtPlanDesc.Name = "txtPlanDesc";
+            txtPlanDesc.ScrollBars = ScrollBars.Vertical;
+            txtPlanDesc.Size = new Size(300, 60);
+            txtPlanDesc.TabIndex = 5;
+            // 
+            // lblPlanDescription
+            // 
+            lblPlanDescription.AutoSize = true;
+            lblPlanDescription.Location = new Point(22, 141);
+            lblPlanDescription.Name = "lblPlanDescription";
+            lblPlanDescription.Size = new Size(71, 20);
+            lblPlanDescription.TabIndex = 4;
+            lblPlanDescription.Text = "Descriere";
+            // 
+            // txtPlanName
+            // 
+            txtPlanName.Location = new Point(145, 33);
+            txtPlanName.Name = "txtPlanName";
+            txtPlanName.Size = new Size(301, 27);
+            txtPlanName.TabIndex = 3;
+            // 
+            // numPlanPrice
+            // 
+            numPlanPrice.DecimalPlaces = 2;
+            numPlanPrice.Location = new Point(145, 80);
+            numPlanPrice.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            numPlanPrice.Name = "numPlanPrice";
+            numPlanPrice.Size = new Size(301, 27);
+            numPlanPrice.TabIndex = 2;
+            // 
+            // lblPlanPrice
+            // 
+            lblPlanPrice.AutoSize = true;
+            lblPlanPrice.Location = new Point(22, 87);
+            lblPlanPrice.Name = "lblPlanPrice";
+            lblPlanPrice.Size = new Size(35, 20);
+            lblPlanPrice.TabIndex = 1;
+            lblPlanPrice.Text = "Preț";
+            // 
+            // lblPlanName
+            // 
+            lblPlanName.AutoSize = true;
+            lblPlanName.Location = new Point(22, 36);
+            lblPlanName.Name = "lblPlanName";
+            lblPlanName.Size = new Size(49, 20);
+            lblPlanName.TabIndex = 0;
+            lblPlanName.Text = "Nume";
+            // 
+            // numValidDays
+            // 
+            numValidDays.Location = new Point(146, 276);
+            numValidDays.Maximum = new decimal(new int[] { 3650, 0, 0, 0 });
+            numValidDays.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numValidDays.Name = "numValidDays";
+            numValidDays.Size = new Size(300, 27);
+            numValidDays.TabIndex = 12;
+            numValidDays.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
+            // lblValidDays
+            // 
+            lblValidDays.AutoSize = true;
+            lblValidDays.Location = new Point(22, 278);
+            lblValidDays.Name = "lblValidDays";
+            lblValidDays.Size = new Size(121, 20);
+            lblValidDays.TabIndex = 13;
+            lblValidDays.Text = "Valabilitate (zile)";
             // 
             // PlansControl
             // 
@@ -178,6 +225,7 @@
             panelEdit.ResumeLayout(false);
             panelEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numPlanPrice).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numValidDays).EndInit();
             ResumeLayout(false);
         }
 
@@ -195,5 +243,9 @@
         private Button btnRefreshPlans;
         private Button btnDeletePlan;
         private Button btnUpdatePlan;
+        private Label lblAccessType;
+        private ComboBox cmbPlanAccess;
+        private Label lblValidDays;
+        private NumericUpDown numValidDays;
     }
 }

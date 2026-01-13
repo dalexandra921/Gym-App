@@ -31,6 +31,7 @@
             tabClient = new TabControl();
             tabSchedule = new TabPage();
             tabMyBookings = new TabPage();
+            tabSubscriptions = new TabPage();
             tabClient.SuspendLayout();
             SuspendLayout();
             // 
@@ -38,6 +39,7 @@
             // 
             tabClient.Controls.Add(tabSchedule);
             tabClient.Controls.Add(tabMyBookings);
+            tabClient.Controls.Add(tabSubscriptions);
             tabClient.Dock = DockStyle.Fill;
             tabClient.Location = new Point(0, 0);
             tabClient.Name = "tabClient";
@@ -65,6 +67,16 @@
             tabMyBookings.Text = "Rezervările mele";
             tabMyBookings.UseVisualStyleBackColor = true;
             // 
+            // tabSubscriptions
+            // 
+            tabSubscriptions.Location = new Point(4, 29);
+            tabSubscriptions.Name = "tabSubscriptions";
+            tabSubscriptions.Padding = new Padding(3);
+            tabSubscriptions.Size = new Size(876, 454);
+            tabSubscriptions.TabIndex = 2;
+            tabSubscriptions.Text = "Abonamente";
+            tabSubscriptions.UseVisualStyleBackColor = true;
+            // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -83,5 +95,6 @@
         private TabControl tabClient;
         private TabPage tabSchedule;
         private TabPage tabMyBookings;
+        private TabPage tabSubscriptions;
     }
 }

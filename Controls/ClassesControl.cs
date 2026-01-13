@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace GymApp_final.Controls
 {
@@ -18,6 +19,12 @@ namespace GymApp_final.Controls
         public ClassesControl()
         {
             InitializeComponent();
+
+            cmbRequiredAccessLevel.Items.Clear();
+            cmbRequiredAccessLevel.Items.Add("Standard");
+            cmbRequiredAccessLevel.Items.Add("VIP");
+            cmbRequiredAccessLevel.SelectedIndex = 0;
+
 
             gridClasses.AutoGenerateColumns = true;
 
@@ -41,6 +48,8 @@ namespace GymApp_final.Controls
 
                 if (gridClasses.Columns.Contains("Id"))
                     gridClasses.Columns["Id"].Visible = false;
+
+
             }
             catch (Exception ex)
             {
@@ -61,6 +70,10 @@ namespace GymApp_final.Controls
             numDuration.Value = c.DurationMinutes;
             numCapacity.Value = c.Capacity;
             dtpStartTime.Value = c.StartTime == default ? DateTime.Now : c.StartTime;
+            cmbRequiredAccessLevel.SelectedItem = c.RequiredAccessLevel;
+            if (cmbRequiredAccessLevel.SelectedItem == null)
+                cmbRequiredAccessLevel.SelectedIndex = 0;
+
         }
 
         private void AddClass()
@@ -88,7 +101,8 @@ namespace GymApp_final.Controls
                     Trainer = trainer,
                     DurationMinutes = (int)numDuration.Value,
                     Capacity = (int)numCapacity.Value,
-                    StartTime = dtpStartTime.Value
+                    StartTime = dtpStartTime.Value,
+                    RequiredAccessLevel = cmbRequiredAccessLevel.SelectedItem?.ToString() ?? "Standard",
                 });
 
                 JsonFile.Save("classes.json", _classes);
@@ -136,6 +150,7 @@ namespace GymApp_final.Controls
                 selected.DurationMinutes = (int)numDuration.Value;
                 selected.Capacity = (int)numCapacity.Value;
                 selected.StartTime = dtpStartTime.Value;
+                selected.RequiredAccessLevel = cmbRequiredAccessLevel.SelectedItem?.ToString() ?? "Standard";
 
                 JsonFile.Save("classes.json", _classes);
                 LoadClasses();

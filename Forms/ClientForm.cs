@@ -31,6 +31,10 @@ namespace GymApp_final
             myBookings.Dock = DockStyle.Fill;
             tabMyBookings.Controls.Add(myBookings);
 
+            var subs = new SubscriptionsControl(_account.Username);
+            subs.Dock = DockStyle.Fill;
+            tabSubscriptions.Controls.Add(subs);
+
         }
     }
 }

@@ -30,6 +30,8 @@
         {
             gridClasses = new DataGridView();
             panelEdit = new Panel();
+            lblAccess = new Label();
+            cmbRequiredAccessLevel = new ComboBox();
             btnRefreshClasses = new Button();
             btnDeleteClass = new Button();
             btnUpdateClass = new Button();
@@ -67,6 +69,8 @@
             // 
             // panelEdit
             // 
+            panelEdit.Controls.Add(lblAccess);
+            panelEdit.Controls.Add(cmbRequiredAccessLevel);
             panelEdit.Controls.Add(btnRefreshClasses);
             panelEdit.Controls.Add(btnDeleteClass);
             panelEdit.Controls.Add(btnUpdateClass);
@@ -86,6 +90,23 @@
             panelEdit.Name = "panelEdit";
             panelEdit.Size = new Size(878, 351);
             panelEdit.TabIndex = 1;
+            // 
+            // lblAccess
+            // 
+            lblAccess.AutoSize = true;
+            lblAccess.Location = new Point(27, 302);
+            lblAccess.Name = "lblAccess";
+            lblAccess.Size = new Size(72, 20);
+            lblAccess.TabIndex = 15;
+            lblAccess.Text = "Tip acess:";
+            // 
+            // cmbRequiredAccessLevel
+            // 
+            cmbRequiredAccessLevel.FormattingEnabled = true;
+            cmbRequiredAccessLevel.Location = new Point(179, 302);
+            cmbRequiredAccessLevel.Name = "cmbRequiredAccessLevel";
+            cmbRequiredAccessLevel.Size = new Size(200, 28);
+            cmbRequiredAccessLevel.TabIndex = 14;
             // 
             // btnRefreshClasses
             // 
@@ -127,10 +148,10 @@
             // 
             dtpStartTime.CustomFormat = "dd.MM.yyyy HH:mm";
             dtpStartTime.Format = DateTimePickerFormat.Custom;
-            dtpStartTime.Location = new Point(129, 247);
+            dtpStartTime.Location = new Point(179, 247);
             dtpStartTime.Name = "dtpStartTime";
             dtpStartTime.ShowUpDown = true;
-            dtpStartTime.Size = new Size(250, 27);
+            dtpStartTime.Size = new Size(200, 27);
             dtpStartTime.TabIndex = 9;
             // 
             // lblStartTime
@@ -246,5 +267,7 @@
         private Button btnDeleteClass;
         private Button btnUpdateClass;
         private Button btnAddClass;
+        private Label lblAccess;
+        private ComboBox cmbRequiredAccessLevel;
     }
 }
