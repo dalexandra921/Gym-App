@@ -25,6 +25,11 @@ namespace GymApp_final.Controls
             btnDeletePlan.Click += (_, __) => DeletePlan();
             btnRefreshPlans.Click += (_, __) => LoadPlans();
 
+            cmbPlanAccess.Items.Clear();
+            cmbPlanAccess.Items.Add("Standard");
+            cmbPlanAccess.Items.Add("VIP");
+            cmbPlanAccess.SelectedIndex = 0;
+
             gridPlans.SelectionChanged += (_, __) => FillInputsFromSelected();
 
             LoadPlans();
@@ -58,6 +63,12 @@ namespace GymApp_final.Controls
             txtPlanName.Text = p.Name;
             numPlanPrice.Value = p.Price;
             txtPlanDesc.Text = p.Description;
+
+            cmbPlanAccess.SelectedItem = p.AccessLevel;
+            if (cmbPlanAccess.SelectedItem == null)
+                cmbPlanAccess.SelectedIndex = 0;
+
+            numValidDays.Value = p.ValidDays <= 0 ? 30 : p.ValidDays;
         }
 
         private void AddPlan()
@@ -76,7 +87,9 @@ namespace GymApp_final.Controls
                     Id = Guid.NewGuid(),
                     Name = name,
                     Price = numPlanPrice.Value,
-                    Description = txtPlanDesc.Text.Trim()
+                    Description = txtPlanDesc.Text.Trim(),
+                    AccessLevel = cmbPlanAccess.SelectedItem?.ToString() ?? "Standard",
+                    ValidDays = (int)numValidDays.Value,
                 });
 
                 JsonFile.Save("plans.json", _plans);
@@ -114,6 +127,8 @@ namespace GymApp_final.Controls
                 selected.Name = name;
                 selected.Price = numPlanPrice.Value;
                 selected.Description = txtPlanDesc.Text.Trim();
+                selected.AccessLevel = cmbPlanAccess.SelectedItem?.ToString() ?? "Standard";
+                selected.ValidDays = (int)numValidDays.Value;
 
                 JsonFile.Save("plans.json", _plans);
                 LoadPlans();

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using GymApp_final.Data;
+using GymApp_final.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GymApp_final.Data;
-using GymApp_final.Models;
 
 namespace GymApp_final.Controls
 {
@@ -79,6 +80,37 @@ namespace GymApp_final.Controls
                 if (_bookings.Any(b => b.Username == _username && b.ClassId == c.Id))
                 {
                     MessageBox.Show("Ai deja rezervare la această clasă.");
+                    return;
+                }
+
+                // încarcă abonamente + planuri
+                var subs = JsonFile.Load<UserSubscription>("subscriptions.json");
+                var plans = JsonFile.Load<SubscriptionPlan>("plans.json");
+
+                // abonament activ
+                var active = subs
+                    .Where(s => s.Username == _username && s.EndDate >= DateTime.Now)
+                    .OrderByDescending(s => s.EndDate)
+                    .FirstOrDefault();
+
+                if (active == null)
+                {
+                    MessageBox.Show("Nu ai abonament activ. Cumpără un abonament ca să poți rezerva.");
+                    return;
+                }
+
+                // planul abonamentului (ASTA ÎȚI LIPSEA)
+                var plan = plans.FirstOrDefault(p => p.Id == active.PlanId);
+                if (plan == null)
+                {
+                    MessageBox.Show("Planul abonamentului nu există.");
+                    return;
+                }
+
+                //  verificare VIP
+                if (c.RequiredAccessLevel == "VIP" && plan.AccessLevel != "VIP")
+                {
+                    MessageBox.Show("Această clasă este VIP. Fă upgrade la abonament.");
                     return;
                 }
 
