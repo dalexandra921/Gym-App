@@ -28,26 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabAdmin = new TabControl();
+            tabTrainers = new TabControl();
             tabPlans = new TabPage();
             PlansControl = new GymApp_final.Controls.PlansControl();
             tabClasses = new TabPage();
             classesControl1 = new GymApp_final.Controls.ClassesControl();
-            tabAdmin.SuspendLayout();
+            tabPage1 = new TabPage();
+            trainersControl1 = new GymApp_final.Controls.TrainersControl();
+            tabTrainers.SuspendLayout();
             tabPlans.SuspendLayout();
             tabClasses.SuspendLayout();
+            tabPage1.SuspendLayout();
             SuspendLayout();
             // 
-            // tabAdmin
+            // tabTrainers
             // 
-            tabAdmin.Controls.Add(tabPlans);
-            tabAdmin.Controls.Add(tabClasses);
-            tabAdmin.Dock = DockStyle.Fill;
-            tabAdmin.Location = new Point(0, 0);
-            tabAdmin.Name = "tabAdmin";
-            tabAdmin.SelectedIndex = 0;
-            tabAdmin.Size = new Size(800, 514);
-            tabAdmin.TabIndex = 0;
+            tabTrainers.Controls.Add(tabPlans);
+            tabTrainers.Controls.Add(tabClasses);
+            tabTrainers.Controls.Add(tabPage1);
+            tabTrainers.Dock = DockStyle.Fill;
+            tabTrainers.Location = new Point(0, 0);
+            tabTrainers.Name = "tabTrainers";
+            tabTrainers.SelectedIndex = 0;
+            tabTrainers.Size = new Size(843, 612);
+            tabTrainers.TabIndex = 0;
             // 
             // tabPlans
             // 
@@ -55,7 +59,7 @@
             tabPlans.Location = new Point(4, 29);
             tabPlans.Name = "tabPlans";
             tabPlans.Padding = new Padding(3);
-            tabPlans.Size = new Size(792, 481);
+            tabPlans.Size = new Size(835, 579);
             tabPlans.TabIndex = 0;
             tabPlans.Text = "Abonamente";
             tabPlans.UseVisualStyleBackColor = true;
@@ -65,7 +69,7 @@
             PlansControl.Dock = DockStyle.Fill;
             PlansControl.Location = new Point(3, 3);
             PlansControl.Name = "PlansControl";
-            PlansControl.Size = new Size(786, 475);
+            PlansControl.Size = new Size(829, 573);
             PlansControl.TabIndex = 0;
             // 
             // tabClasses
@@ -74,7 +78,7 @@
             tabClasses.Location = new Point(4, 29);
             tabClasses.Name = "tabClasses";
             tabClasses.Padding = new Padding(3);
-            tabClasses.Size = new Size(792, 481);
+            tabClasses.Size = new Size(835, 579);
             tabClasses.TabIndex = 1;
             tabClasses.Text = "Clase";
             tabClasses.UseVisualStyleBackColor = true;
@@ -84,31 +88,52 @@
             classesControl1.Dock = DockStyle.Fill;
             classesControl1.Location = new Point(3, 3);
             classesControl1.Name = "classesControl1";
-            classesControl1.Size = new Size(786, 475);
+            classesControl1.Size = new Size(829, 573);
             classesControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(trainersControl1);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(835, 579);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "Antrenori";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // trainersControl1
+            // 
+            trainersControl1.Dock = DockStyle.Fill;
+            trainersControl1.Location = new Point(3, 3);
+            trainersControl1.Name = "trainersControl1";
+            trainersControl1.Size = new Size(829, 573);
+            trainersControl1.TabIndex = 0;
             // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 514);
-            Controls.Add(tabAdmin);
+            ClientSize = new Size(843, 612);
+            Controls.Add(tabTrainers);
             Name = "AdminForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin";
-            Load += AdminForm_Load;
-            tabAdmin.ResumeLayout(false);
+            tabTrainers.ResumeLayout(false);
             tabPlans.ResumeLayout(false);
             tabClasses.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl tabAdmin;
+        private TabControl tabTrainers;
         private TabPage tabPlans;
         private TabPage tabClasses;
         private Controls.PlansControl PlansControl;
         private Controls.ClassesControl classesControl1;
+        private TabPage tabPage1;
+        private Controls.TrainersControl trainersControl1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymApp_final.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,10 +17,6 @@ namespace GymApp_final
         {
             InitializeComponent();
         }
-        
-        private void AdminForm_Load(object sender, EventArgs e)
-        {
-            
-        }
+
     }
 }

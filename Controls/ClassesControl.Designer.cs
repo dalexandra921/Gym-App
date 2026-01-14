@@ -42,10 +42,10 @@
             lblCapacity = new Label();
             numDuration = new NumericUpDown();
             lblDuration = new Label();
-            txtTrainer = new TextBox();
             lblTrainer = new Label();
             txtClassTitle = new TextBox();
             lblClassTitle = new Label();
+            cmbTrainer = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)gridClasses).BeginInit();
             panelEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numCapacity).BeginInit();
@@ -69,6 +69,7 @@
             // 
             // panelEdit
             // 
+            panelEdit.Controls.Add(cmbTrainer);
             panelEdit.Controls.Add(lblAccess);
             panelEdit.Controls.Add(cmbRequiredAccessLevel);
             panelEdit.Controls.Add(btnRefreshClasses);
@@ -81,7 +82,6 @@
             panelEdit.Controls.Add(lblCapacity);
             panelEdit.Controls.Add(numDuration);
             panelEdit.Controls.Add(lblDuration);
-            panelEdit.Controls.Add(txtTrainer);
             panelEdit.Controls.Add(lblTrainer);
             panelEdit.Controls.Add(txtClassTitle);
             panelEdit.Controls.Add(lblClassTitle);
@@ -201,13 +201,6 @@
             lblDuration.TabIndex = 4;
             lblDuration.Text = "Durată (min)";
             // 
-            // txtTrainer
-            // 
-            txtTrainer.Location = new Point(179, 84);
-            txtTrainer.Name = "txtTrainer";
-            txtTrainer.Size = new Size(200, 27);
-            txtTrainer.TabIndex = 3;
-            // 
             // lblTrainer
             // 
             lblTrainer.AutoSize = true;
@@ -233,6 +226,15 @@
             lblClassTitle.TabIndex = 0;
             lblClassTitle.Text = "Titlu";
             // 
+            // cmbTrainer
+            // 
+            cmbTrainer.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTrainer.FormattingEnabled = true;
+            cmbTrainer.Location = new Point(179, 81);
+            cmbTrainer.Name = "cmbTrainer";
+            cmbTrainer.Size = new Size(200, 28);
+            cmbTrainer.TabIndex = 16;
+            // 
             // ClassesControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -255,7 +257,6 @@
         private Panel panelEdit;
         private TextBox txtClassTitle;
         private Label lblClassTitle;
-        private TextBox txtTrainer;
         private Label lblTrainer;
         private DateTimePicker dtpStartTime;
         private Label lblStartTime;
@@ -269,5 +270,6 @@
         private Button btnAddClass;
         private Label lblAccess;
         private ComboBox cmbRequiredAccessLevel;
+        private ComboBox cmbTrainer;
     }
 }
