@@ -16,6 +16,8 @@ namespace GymApp_final.Controls
     public partial class ClassesControl : UserControl
     {
         private List<FitnessClass> _classes = new();
+        private List<Trainer> _trainers = new();
+
         public ClassesControl()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace GymApp_final.Controls
 
             gridClasses.SelectionChanged += (_, __) => FillInputsFromSelected();
 
+            LoadTrainersIntoCombo();
             LoadClasses();
         }
 
@@ -66,7 +69,9 @@ namespace GymApp_final.Controls
             if (c == null) return;
 
             txtClassTitle.Text = c.Title;
-            txtTrainer.Text = c.Trainer;
+            var match = _trainers.FirstOrDefault(t => t.FullName == c.Trainer);
+            if (match != null)
+                cmbTrainer.SelectedItem = match;
             numDuration.Value = c.DurationMinutes;
             numCapacity.Value = c.Capacity;
             dtpStartTime.Value = c.StartTime == default ? DateTime.Now : c.StartTime;
@@ -87,10 +92,10 @@ namespace GymApp_final.Controls
                     return;
                 }
 
-                var trainer = txtTrainer.Text.Trim();
-                if (string.IsNullOrWhiteSpace(trainer))
+                var trainer = cmbTrainer.SelectedItem as Trainer;
+                if (trainer == null)
                 {
-                    MessageBox.Show("Antrenorul nu poate fi gol.");
+                    MessageBox.Show("Selectează un antrenor.");
                     return;
                 }
 
@@ -98,7 +103,7 @@ namespace GymApp_final.Controls
                 {
                     Id = Guid.NewGuid(),
                     Title = title,
-                    Trainer = trainer,
+                    Trainer = trainer.FullName,
                     DurationMinutes = (int)numDuration.Value,
                     Capacity = (int)numCapacity.Value,
                     StartTime = dtpStartTime.Value,
@@ -109,7 +114,7 @@ namespace GymApp_final.Controls
                 LoadClasses();
 
                 txtClassTitle.Clear();
-                txtTrainer.Clear();
+                if (_trainers.Count > 0) cmbTrainer.SelectedIndex = 0;
                 numDuration.Value = numDuration.Minimum;
                 numCapacity.Value = numCapacity.Minimum;
                 dtpStartTime.Value = DateTime.Now;
@@ -138,15 +143,15 @@ namespace GymApp_final.Controls
                     return;
                 }
 
-                var trainer = txtTrainer.Text.Trim();
-                if (string.IsNullOrWhiteSpace(trainer))
+                var trainer = cmbTrainer.SelectedItem as Trainer;
+                if (trainer == null)
                 {
-                    MessageBox.Show("Antrenorul nu poate fi gol.");
+                    MessageBox.Show("Selectează un antrenor.");
                     return;
                 }
 
                 selected.Title = title;
-                selected.Trainer = trainer;
+                selected.Trainer = trainer.FullName;
                 selected.DurationMinutes = (int)numDuration.Value;
                 selected.Capacity = (int)numCapacity.Value;
                 selected.StartTime = dtpStartTime.Value;
@@ -181,7 +186,7 @@ namespace GymApp_final.Controls
                 LoadClasses();
 
                 txtClassTitle.Clear();
-                txtTrainer.Clear();
+                if (_trainers.Count > 0) cmbTrainer.SelectedIndex = 0;
                 numDuration.Value = numDuration.Minimum;
                 numCapacity.Value = numCapacity.Minimum;
                 dtpStartTime.Value = DateTime.Now;
@@ -191,5 +196,28 @@ namespace GymApp_final.Controls
                 MessageBox.Show("Eroare la ștergerea clasei:\n" + ex.Message);
             }
         }
+
+        private void LoadTrainersIntoCombo()
+        {
+            try
+            {
+                _trainers = JsonFile.Load<Trainer>("trainers.json")
+                    .OrderBy(t => t.FullName)
+                    .ToList();
+
+                cmbTrainer.DataSource = null;
+                cmbTrainer.DataSource = _trainers;
+                cmbTrainer.DisplayMember = "FullName";
+                cmbTrainer.ValueMember = "Id";
+
+                if (_trainers.Count > 0)
+                    cmbTrainer.SelectedIndex = 0;
+            }
+            catch
+            {
+                cmbTrainer.DataSource = null;
+            }
+        }
+
     }
 }
