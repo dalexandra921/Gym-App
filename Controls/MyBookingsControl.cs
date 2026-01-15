@@ -39,26 +39,27 @@ namespace GymApp_final.Controls
 
                 var my = _bookings
                     .Where(b => b.Username == _username)
-                    .Join(_classes,
-                        b => b.ClassId,
-                        c => c.Id,
-                        (b, c) => new
+                    .Select(b =>
+                    {
+                        var c = _classes.FirstOrDefault(x => x.Id == b.ClassId);
+
+                        return new
                         {
-                            BookingId = b.Id,
-                            c.Title,
-                            c.Trainer,
-                            c.StartTime,
-                            c.DurationMinutes,
-                            CreatedAt = b.CreatedAt
-                        })
+                            b.Id,
+                            ClassTitle = c?.Title ?? "(clasă ștearsă)",
+                            StartTime = c?.StartTime,
+                            Trainer = c?.Trainer,
+                            b.CreatedAt
+                        };
+                    })
                     .OrderBy(x => x.StartTime)
                     .ToList();
 
                 gridMyBookings.DataSource = null;
                 gridMyBookings.DataSource = my;
 
-                if (gridMyBookings.Columns.Contains("BookingId"))
-                    gridMyBookings.Columns["BookingId"].Visible = false;
+                if (gridMyBookings.Columns.Contains("Id"))
+                    gridMyBookings.Columns["Id"].Visible = false;
 
                 if (gridMyBookings.Columns.Contains("StartTime"))
                     gridMyBookings.Columns["StartTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
@@ -71,9 +72,19 @@ namespace GymApp_final.Controls
 
         private Guid? SelectedBookingId()
         {
-            if (gridMyBookings.CurrentRow?.DataBoundItem == null) return null;
-            var prop = gridMyBookings.CurrentRow.DataBoundItem.GetType().GetProperty("BookingId");
-            return prop?.GetValue(gridMyBookings.CurrentRow.DataBoundItem) as Guid?;
+            try
+            {
+                if (gridMyBookings.CurrentRow == null) return null;
+
+                var cell = gridMyBookings.CurrentRow.Cells["Id"]?.Value;
+                if (cell is Guid id) return id;
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private void CancelBooking()
@@ -87,12 +98,54 @@ namespace GymApp_final.Controls
                     return;
                 }
 
+                // caută rezervarea
+                var booking = _bookings.FirstOrDefault(b => b.Id == bookingId.Value && b.Username == _username);
+                if (booking == null)
+                {
+                    MessageBox.Show("Rezervarea nu mai există.");
+                    LoadData();
+                    return;
+                }
+
+                // caută clasa rezervată
+                var cls = _classes.FirstOrDefault(c => c.Id == booking.ClassId);
+
+                // dacă clasa a fost ștearsă, permiți anularea rezervării
+                if (cls == null)
+                {
+                    if (MessageBox.Show("Clasa a fost ștearsă. Șterg rezervarea din istoric?",
+                        "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+
+                    _bookings.RemoveAll(b => b.Id == booking.Id && b.Username == _username);
+                    JsonFile.Save("bookings.json", _bookings);
+                    MessageBox.Show("Rezervarea a fost anulată.");
+                    LoadData();
+                    return;
+                }
+
+                // REGULA: nu pot anula cu mai putin de 2 ore inainte de inceperea clasei
+                var diff = cls.StartTime - DateTime.Now;
+                if (diff.TotalHours < 2)
+                {
+                    MessageBox.Show("Nu poți anula cu mai puțin de 2 ore înainte de începerea clasei.");
+                    return;
+                }
+
+                if (diff.TotalMinutes <= 0)
+                {
+                    MessageBox.Show("Clasa a început deja / s-a terminat. Nu mai poți anula.");
+                    return;
+                }
+
                 if (MessageBox.Show("Sigur vrei să anulezi rezervarea?",
                     "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                _bookings.RemoveAll(b => b.Id == bookingId.Value && b.Username == _username);
+                _bookings.RemoveAll(b => b.Id == booking.Id && b.Username == _username);
                 JsonFile.Save("bookings.json", _bookings);
+
+                MessageBox.Show("Rezervarea a fost anulată.");
                 LoadData();
             }
             catch (Exception ex)
@@ -100,5 +153,6 @@ namespace GymApp_final.Controls
                 MessageBox.Show("Eroare la anulare:\n" + ex.Message);
             }
         }
+
     }
 }

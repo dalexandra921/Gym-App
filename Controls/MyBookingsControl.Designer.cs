@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panelBottom = new Panel();
-            btnCancel = new Button();
             btnRefresh = new Button();
+            btnCancel = new Button();
             gridMyBookings = new DataGridView();
             panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridMyBookings).BeginInit();
@@ -46,15 +46,6 @@
             panelBottom.Size = new Size(794, 88);
             panelBottom.TabIndex = 0;
             // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(215, 33);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(94, 29);
-            btnCancel.TabIndex = 0;
-            btnCancel.Text = "Anulează";
-            btnCancel.UseVisualStyleBackColor = true;
-            // 
             // btnRefresh
             // 
             btnRefresh.Location = new Point(534, 33);
@@ -63,6 +54,15 @@
             btnRefresh.TabIndex = 1;
             btnRefresh.Text = "Refesh";
             btnRefresh.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(215, 33);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(94, 29);
+            btnCancel.TabIndex = 0;
+            btnCancel.Text = "Anulează";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // gridMyBookings
             // 
