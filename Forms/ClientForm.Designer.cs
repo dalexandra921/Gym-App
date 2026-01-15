@@ -32,6 +32,7 @@
             tabSchedule = new TabPage();
             tabMyBookings = new TabPage();
             tabSubscriptions = new TabPage();
+            tabRooms = new TabPage();
             tabClient.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,6 +41,7 @@
             tabClient.Controls.Add(tabSchedule);
             tabClient.Controls.Add(tabMyBookings);
             tabClient.Controls.Add(tabSubscriptions);
+            tabClient.Controls.Add(tabRooms);
             tabClient.Dock = DockStyle.Fill;
             tabClient.Location = new Point(0, 0);
             tabClient.Name = "tabClient";
@@ -77,6 +79,16 @@
             tabSubscriptions.Text = "Abonamente";
             tabSubscriptions.UseVisualStyleBackColor = true;
             // 
+            // tabRooms
+            // 
+            tabRooms.Location = new Point(4, 29);
+            tabRooms.Name = "tabRooms";
+            tabRooms.Padding = new Padding(3);
+            tabRooms.Size = new Size(876, 454);
+            tabRooms.TabIndex = 3;
+            tabRooms.Text = "Săli";
+            tabRooms.UseVisualStyleBackColor = true;
+            // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -96,5 +108,6 @@
         private TabPage tabSchedule;
         private TabPage tabMyBookings;
         private TabPage tabSubscriptions;
+        private TabPage tabRooms;
     }
 }

@@ -35,6 +35,10 @@ namespace GymApp_final
             subs.Dock = DockStyle.Fill;
             tabSubscriptions.Controls.Add(subs);
 
+            var rooms = new ClientRoomsControl(_account.Username);
+            rooms.Dock = DockStyle.Fill;
+            tabRooms.Controls.Add(rooms);
+
         }
     }
 }
