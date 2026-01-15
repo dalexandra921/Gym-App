@@ -99,7 +99,7 @@ namespace GymApp_final.Controls
                     return;
                 }
 
-                // planul abonamentului (ASTA ÎȚI LIPSEA)
+                // planul abonamentului
                 var plan = plans.FirstOrDefault(p => p.Id == active.PlanId);
                 if (plan == null)
                 {

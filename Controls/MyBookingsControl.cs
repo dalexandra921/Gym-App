@@ -37,26 +37,41 @@ namespace GymApp_final.Controls
                 _classes = JsonFile.Load<FitnessClass>("classes.json");
                 _bookings = JsonFile.Load<Booking>("bookings.json");
 
+                var now = DateTime.Now;
+
                 var my = _bookings
                     .Where(b => b.Username == _username)
                     .Select(b =>
                     {
                         var c = _classes.FirstOrDefault(x => x.Id == b.ClassId);
 
+                        DateTime? start = c?.StartTime;
+
+                        var status =
+                            start == null ? "Clasă ștearsă" :
+                            start.Value < now ? "Trecută" :
+                            "Viitoare";
+
                         return new
                         {
                             b.Id,
                             ClassTitle = c?.Title ?? "(clasă ștearsă)",
-                            StartTime = c?.StartTime,
-                            Trainer = c?.Trainer,
+                            StartTime = start,
+                            Trainer = c?.Trainer ?? "",
+                            Status = status,
                             b.CreatedAt
                         };
                     })
-                    .OrderBy(x => x.StartTime)
+                    // pune întâi viitoare, apoi trecute
+                    .OrderBy(x => x.Status == "Viitoare" ? 0 : 1)
+                    .ThenBy(x => x.StartTime ?? DateTime.MaxValue)
                     .ToList();
 
                 gridMyBookings.DataSource = null;
                 gridMyBookings.DataSource = my;
+
+                if (gridMyBookings.Columns.Contains("StartTime"))
+                    gridMyBookings.Columns["StartTime"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
 
                 if (gridMyBookings.Columns.Contains("Id"))
                     gridMyBookings.Columns["Id"].Visible = false;

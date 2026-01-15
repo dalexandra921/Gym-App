@@ -193,6 +193,7 @@
             tabBookings.TabIndex = 6;
             tabBookings.Text = "Rezervări";
             tabBookings.UseVisualStyleBackColor = true;
+            tabBookings.Enter += tabBookings_Enter;
             // 
             // adminBookingsViewControl1
             // 

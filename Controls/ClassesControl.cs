@@ -27,7 +27,6 @@ namespace GymApp_final.Controls
             cmbRequiredAccessLevel.Items.Add("VIP");
             cmbRequiredAccessLevel.SelectedIndex = 0;
 
-
             gridClasses.AutoGenerateColumns = true;
 
             btnAddClass.Click += (_, __) => AddClass();
@@ -39,6 +38,11 @@ namespace GymApp_final.Controls
 
             LoadTrainersIntoCombo();
             LoadClasses();
+        }
+
+        public void RefreshTrainers()
+        {
+            LoadTrainersIntoCombo();
         }
 
         private void LoadClasses()
@@ -76,6 +80,7 @@ namespace GymApp_final.Controls
             numCapacity.Value = c.Capacity;
             dtpStartTime.Value = c.StartTime == default ? DateTime.Now : c.StartTime;
             cmbRequiredAccessLevel.SelectedItem = c.RequiredAccessLevel;
+
             if (cmbRequiredAccessLevel.SelectedItem == null)
                 cmbRequiredAccessLevel.SelectedIndex = 0;
 

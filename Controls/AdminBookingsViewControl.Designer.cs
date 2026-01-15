@@ -61,7 +61,7 @@
             splitMain.Panel2.Controls.Add(lblSelectedClass);
             splitMain.Panel2.Controls.Add(btnRefreshAdminBookings);
             splitMain.Size = new Size(874, 635);
-            splitMain.SplitterDistance = 431;
+            splitMain.SplitterDistance = 414;
             splitMain.TabIndex = 0;
             // 
             // btnDeleteBookingAdmin
@@ -85,7 +85,6 @@
             // gridClassesAdmin
             // 
             gridClassesAdmin.AllowUserToAddRows = false;
-            gridClassesAdmin.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             gridClassesAdmin.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gridClassesAdmin.Dock = DockStyle.Bottom;
             gridClassesAdmin.Location = new Point(0, 162);
@@ -93,7 +92,7 @@
             gridClassesAdmin.ReadOnly = true;
             gridClassesAdmin.RowHeadersWidth = 51;
             gridClassesAdmin.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridClassesAdmin.Size = new Size(431, 473);
+            gridClassesAdmin.Size = new Size(414, 473);
             gridClassesAdmin.TabIndex = 1;
             // 
             // gridBookingsAdmin
@@ -107,7 +106,7 @@
             gridBookingsAdmin.ReadOnly = true;
             gridBookingsAdmin.RowHeadersWidth = 51;
             gridBookingsAdmin.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridBookingsAdmin.Size = new Size(439, 473);
+            gridBookingsAdmin.Size = new Size(456, 473);
             gridBookingsAdmin.TabIndex = 1;
             // 
             // lblSelectedClass

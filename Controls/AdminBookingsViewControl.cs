@@ -34,7 +34,6 @@ namespace GymApp_final.Controls
             LoadData();
         }
 
-        private void LoadData()
         {
             try
             {
