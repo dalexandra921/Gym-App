@@ -41,6 +41,8 @@
             ZonesControl = new GymApp_final.Controls.ZonesControl();
             tabRooms = new TabPage();
             RoomsControl = new GymApp_final.Controls.RoomsControl();
+            tabBookings = new TabPage();
+            adminBookingsViewControl1 = new GymApp_final.Controls.AdminBookingsViewControl();
             tabMain.SuspendLayout();
             tabPlans.SuspendLayout();
             tabClasses.SuspendLayout();
@@ -48,6 +50,7 @@
             tabStats.SuspendLayout();
             tabZones.SuspendLayout();
             tabRooms.SuspendLayout();
+            tabBookings.SuspendLayout();
             SuspendLayout();
             // 
             // tabMain
@@ -58,6 +61,7 @@
             tabMain.Controls.Add(tabStats);
             tabMain.Controls.Add(tabZones);
             tabMain.Controls.Add(tabRooms);
+            tabMain.Controls.Add(tabBookings);
             tabMain.Dock = DockStyle.Fill;
             tabMain.Location = new Point(0, 0);
             tabMain.Name = "tabMain";
@@ -179,6 +183,25 @@
             RoomsControl.Size = new Size(829, 573);
             RoomsControl.TabIndex = 0;
             // 
+            // tabBookings
+            // 
+            tabBookings.Controls.Add(adminBookingsViewControl1);
+            tabBookings.Location = new Point(4, 29);
+            tabBookings.Name = "tabBookings";
+            tabBookings.Padding = new Padding(3);
+            tabBookings.Size = new Size(835, 579);
+            tabBookings.TabIndex = 6;
+            tabBookings.Text = "Rezervări";
+            tabBookings.UseVisualStyleBackColor = true;
+            // 
+            // adminBookingsViewControl1
+            // 
+            adminBookingsViewControl1.Dock = DockStyle.Fill;
+            adminBookingsViewControl1.Location = new Point(3, 3);
+            adminBookingsViewControl1.Name = "adminBookingsViewControl1";
+            adminBookingsViewControl1.Size = new Size(829, 573);
+            adminBookingsViewControl1.TabIndex = 0;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -195,6 +218,7 @@
             tabStats.ResumeLayout(false);
             tabZones.ResumeLayout(false);
             tabRooms.ResumeLayout(false);
+            tabBookings.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -213,5 +237,7 @@
         private Controls.ZonesControl ZonesControl;
         private TabPage tabRooms;
         private Controls.RoomsControl RoomsControl;
+        private TabPage tabBookings;
+        private Controls.AdminBookingsViewControl adminBookingsViewControl1;
     }
 }
