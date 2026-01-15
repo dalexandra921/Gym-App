@@ -37,11 +37,17 @@
             TrainersControl = new GymApp_final.Controls.TrainersControl();
             tabStats = new TabPage();
             AdminStatsControl = new GymApp_final.Controls.AdminStatsControl();
+            tabZones = new TabPage();
+            ZonesControl = new GymApp_final.Controls.ZonesControl();
+            tabRooms = new TabPage();
+            RoomsControl = new GymApp_final.Controls.RoomsControl();
             tabMain.SuspendLayout();
             tabPlans.SuspendLayout();
             tabClasses.SuspendLayout();
             tabTrainers.SuspendLayout();
             tabStats.SuspendLayout();
+            tabZones.SuspendLayout();
+            tabRooms.SuspendLayout();
             SuspendLayout();
             // 
             // tabMain
@@ -50,6 +56,8 @@
             tabMain.Controls.Add(tabClasses);
             tabMain.Controls.Add(tabTrainers);
             tabMain.Controls.Add(tabStats);
+            tabMain.Controls.Add(tabZones);
+            tabMain.Controls.Add(tabRooms);
             tabMain.Dock = DockStyle.Fill;
             tabMain.Location = new Point(0, 0);
             tabMain.Name = "tabMain";
@@ -133,6 +141,44 @@
             AdminStatsControl.Size = new Size(829, 573);
             AdminStatsControl.TabIndex = 0;
             // 
+            // tabZones
+            // 
+            tabZones.Controls.Add(ZonesControl);
+            tabZones.Location = new Point(4, 29);
+            tabZones.Name = "tabZones";
+            tabZones.Padding = new Padding(3);
+            tabZones.Size = new Size(835, 579);
+            tabZones.TabIndex = 4;
+            tabZones.Text = "Zone";
+            tabZones.UseVisualStyleBackColor = true;
+            // 
+            // ZonesControl
+            // 
+            ZonesControl.Dock = DockStyle.Fill;
+            ZonesControl.Location = new Point(3, 3);
+            ZonesControl.Name = "ZonesControl";
+            ZonesControl.Size = new Size(829, 573);
+            ZonesControl.TabIndex = 0;
+            // 
+            // tabRooms
+            // 
+            tabRooms.Controls.Add(RoomsControl);
+            tabRooms.Location = new Point(4, 29);
+            tabRooms.Name = "tabRooms";
+            tabRooms.Padding = new Padding(3);
+            tabRooms.Size = new Size(835, 579);
+            tabRooms.TabIndex = 5;
+            tabRooms.Text = "Săli";
+            tabRooms.UseVisualStyleBackColor = true;
+            // 
+            // RoomsControl
+            // 
+            RoomsControl.Dock = DockStyle.Fill;
+            RoomsControl.Location = new Point(3, 3);
+            RoomsControl.Name = "RoomsControl";
+            RoomsControl.Size = new Size(829, 573);
+            RoomsControl.TabIndex = 0;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -147,6 +193,8 @@
             tabClasses.ResumeLayout(false);
             tabTrainers.ResumeLayout(false);
             tabStats.ResumeLayout(false);
+            tabZones.ResumeLayout(false);
+            tabRooms.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -161,5 +209,9 @@
         private Controls.TrainersControl TrainersControl;
         private TabPage tabStats;
         private Controls.AdminStatsControl AdminStatsControl;
+        private TabPage tabZones;
+        private Controls.ZonesControl ZonesControl;
+        private TabPage tabRooms;
+        private Controls.RoomsControl RoomsControl;
     }
 }
