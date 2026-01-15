@@ -28,30 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabTrainers = new TabControl();
+            tabMain = new TabControl();
             tabPlans = new TabPage();
             PlansControl = new GymApp_final.Controls.PlansControl();
             tabClasses = new TabPage();
-            classesControl1 = new GymApp_final.Controls.ClassesControl();
-            tabPage1 = new TabPage();
-            trainersControl1 = new GymApp_final.Controls.TrainersControl();
-            tabTrainers.SuspendLayout();
+            ClassesControl = new GymApp_final.Controls.ClassesControl();
+            tabTrainers = new TabPage();
+            TrainersControl = new GymApp_final.Controls.TrainersControl();
+            tabStats = new TabPage();
+            AdminStatsControl = new GymApp_final.Controls.AdminStatsControl();
+            tabMain.SuspendLayout();
             tabPlans.SuspendLayout();
             tabClasses.SuspendLayout();
-            tabPage1.SuspendLayout();
+            tabTrainers.SuspendLayout();
+            tabStats.SuspendLayout();
             SuspendLayout();
             // 
-            // tabTrainers
+            // tabMain
             // 
-            tabTrainers.Controls.Add(tabPlans);
-            tabTrainers.Controls.Add(tabClasses);
-            tabTrainers.Controls.Add(tabPage1);
-            tabTrainers.Dock = DockStyle.Fill;
-            tabTrainers.Location = new Point(0, 0);
-            tabTrainers.Name = "tabTrainers";
-            tabTrainers.SelectedIndex = 0;
-            tabTrainers.Size = new Size(843, 612);
-            tabTrainers.TabIndex = 0;
+            tabMain.Controls.Add(tabPlans);
+            tabMain.Controls.Add(tabClasses);
+            tabMain.Controls.Add(tabTrainers);
+            tabMain.Controls.Add(tabStats);
+            tabMain.Dock = DockStyle.Fill;
+            tabMain.Location = new Point(0, 0);
+            tabMain.Name = "tabMain";
+            tabMain.SelectedIndex = 0;
+            tabMain.Size = new Size(843, 612);
+            tabMain.TabIndex = 0;
             // 
             // tabPlans
             // 
@@ -74,7 +78,7 @@
             // 
             // tabClasses
             // 
-            tabClasses.Controls.Add(classesControl1);
+            tabClasses.Controls.Add(ClassesControl);
             tabClasses.Location = new Point(4, 29);
             tabClasses.Name = "tabClasses";
             tabClasses.Padding = new Padding(3);
@@ -83,57 +87,79 @@
             tabClasses.Text = "Clase";
             tabClasses.UseVisualStyleBackColor = true;
             // 
-            // classesControl1
+            // ClassesControl
             // 
-            classesControl1.Dock = DockStyle.Fill;
-            classesControl1.Location = new Point(3, 3);
-            classesControl1.Name = "classesControl1";
-            classesControl1.Size = new Size(829, 573);
-            classesControl1.TabIndex = 0;
+            ClassesControl.Dock = DockStyle.Fill;
+            ClassesControl.Location = new Point(3, 3);
+            ClassesControl.Name = "ClassesControl";
+            ClassesControl.Size = new Size(829, 573);
+            ClassesControl.TabIndex = 0;
             // 
-            // tabPage1
+            // tabTrainers
             // 
-            tabPage1.Controls.Add(trainersControl1);
-            tabPage1.Location = new Point(4, 29);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(835, 579);
-            tabPage1.TabIndex = 2;
-            tabPage1.Text = "Antrenori";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabTrainers.Controls.Add(TrainersControl);
+            tabTrainers.Location = new Point(4, 29);
+            tabTrainers.Name = "tabTrainers";
+            tabTrainers.Padding = new Padding(3);
+            tabTrainers.Size = new Size(835, 579);
+            tabTrainers.TabIndex = 2;
+            tabTrainers.Text = "Antrenori";
+            tabTrainers.UseVisualStyleBackColor = true;
             // 
-            // trainersControl1
+            // TrainersControl
             // 
-            trainersControl1.Dock = DockStyle.Fill;
-            trainersControl1.Location = new Point(3, 3);
-            trainersControl1.Name = "trainersControl1";
-            trainersControl1.Size = new Size(829, 573);
-            trainersControl1.TabIndex = 0;
+            TrainersControl.Dock = DockStyle.Fill;
+            TrainersControl.Location = new Point(3, 3);
+            TrainersControl.Name = "TrainersControl";
+            TrainersControl.Size = new Size(829, 573);
+            TrainersControl.TabIndex = 0;
+            // 
+            // tabStats
+            // 
+            tabStats.Controls.Add(AdminStatsControl);
+            tabStats.Location = new Point(4, 29);
+            tabStats.Name = "tabStats";
+            tabStats.Padding = new Padding(3);
+            tabStats.Size = new Size(835, 579);
+            tabStats.TabIndex = 3;
+            tabStats.Text = "Statistici";
+            tabStats.UseVisualStyleBackColor = true;
+            // 
+            // AdminStatsControl
+            // 
+            AdminStatsControl.Dock = DockStyle.Fill;
+            AdminStatsControl.Location = new Point(3, 3);
+            AdminStatsControl.Name = "AdminStatsControl";
+            AdminStatsControl.Size = new Size(829, 573);
+            AdminStatsControl.TabIndex = 0;
             // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(843, 612);
-            Controls.Add(tabTrainers);
+            Controls.Add(tabMain);
             Name = "AdminForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin";
-            tabTrainers.ResumeLayout(false);
+            tabMain.ResumeLayout(false);
             tabPlans.ResumeLayout(false);
             tabClasses.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tabTrainers.ResumeLayout(false);
+            tabStats.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl tabTrainers;
+        private TabControl tabMain;
         private TabPage tabPlans;
         private TabPage tabClasses;
         private Controls.PlansControl PlansControl;
-        private Controls.ClassesControl classesControl1;
-        private TabPage tabPage1;
-        private Controls.TrainersControl trainersControl1;
+        private Controls.ClassesControl ClassesControl;
+        private TabPage tabTrainers;
+        private Controls.TrainersControl TrainersControl;
+        private TabPage tabStats;
+        private Controls.AdminStatsControl AdminStatsControl;
     }
 }
