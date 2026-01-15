@@ -33,13 +33,15 @@
             lblTopClient = new Label();
             btnRefreshStats = new Button();
             gridClassStats = new DataGridView();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)gridClassStats).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // lblActiveSubs
             // 
             lblActiveSubs.AutoSize = true;
-            lblActiveSubs.Location = new Point(46, 37);
+            lblActiveSubs.Location = new Point(98, 24);
             lblActiveSubs.Name = "lblActiveSubs";
             lblActiveSubs.Size = new Size(153, 20);
             lblActiveSubs.TabIndex = 0;
@@ -48,7 +50,7 @@
             // lblTotalBookings
             // 
             lblTotalBookings.AutoSize = true;
-            lblTotalBookings.Location = new Point(46, 78);
+            lblTotalBookings.Location = new Point(98, 65);
             lblTotalBookings.Name = "lblTotalBookings";
             lblTotalBookings.Size = new Size(128, 20);
             lblTotalBookings.TabIndex = 1;
@@ -57,7 +59,7 @@
             // lblTopClient
             // 
             lblTopClient.AutoSize = true;
-            lblTopClient.Location = new Point(46, 123);
+            lblTopClient.Location = new Point(98, 110);
             lblTopClient.Name = "lblTopClient";
             lblTopClient.Size = new Size(87, 20);
             lblTopClient.TabIndex = 2;
@@ -65,7 +67,7 @@
             // 
             // btnRefreshStats
             // 
-            btnRefreshStats.Location = new Point(492, 69);
+            btnRefreshStats.Location = new Point(658, 61);
             btnRefreshStats.Name = "btnRefreshStats";
             btnRefreshStats.Size = new Size(94, 29);
             btnRefreshStats.TabIndex = 3;
@@ -76,28 +78,38 @@
             // 
             gridClassStats.AllowUserToAddRows = false;
             gridClassStats.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridClassStats.Dock = DockStyle.Bottom;
-            gridClassStats.Location = new Point(0, 235);
+            gridClassStats.Dock = DockStyle.Fill;
+            gridClassStats.Location = new Point(0, 0);
             gridClassStats.Name = "gridClassStats";
             gridClassStats.ReadOnly = true;
             gridClassStats.RowHeadersWidth = 51;
-            gridClassStats.Size = new Size(859, 413);
+            gridClassStats.Size = new Size(859, 648);
             gridClassStats.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(btnRefreshStats);
+            panel1.Controls.Add(lblTotalBookings);
+            panel1.Controls.Add(lblTopClient);
+            panel1.Controls.Add(lblActiveSubs);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(859, 163);
+            panel1.TabIndex = 5;
             // 
             // AdminStatsControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panel1);
             Controls.Add(gridClassStats);
-            Controls.Add(btnRefreshStats);
-            Controls.Add(lblTopClient);
-            Controls.Add(lblTotalBookings);
-            Controls.Add(lblActiveSubs);
             Name = "AdminStatsControl";
             Size = new Size(859, 648);
             ((System.ComponentModel.ISupportInitialize)gridClassStats).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -107,5 +119,6 @@
         private Label lblTopClient;
         private Button btnRefreshStats;
         private DataGridView gridClassStats;
+        private Panel panel1;
     }
 }
