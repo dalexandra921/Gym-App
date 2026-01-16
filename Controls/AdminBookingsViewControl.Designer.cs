@@ -66,7 +66,7 @@
             // 
             // btnDeleteBookingAdmin
             // 
-            btnDeleteBookingAdmin.Location = new Point(307, 38);
+            btnDeleteBookingAdmin.Location = new Point(264, 46);
             btnDeleteBookingAdmin.Name = "btnDeleteBookingAdmin";
             btnDeleteBookingAdmin.Size = new Size(94, 29);
             btnDeleteBookingAdmin.TabIndex = 2;
@@ -76,7 +76,7 @@
             // lblClase
             // 
             lblClase.AutoSize = true;
-            lblClase.Location = new Point(39, 47);
+            lblClase.Location = new Point(33, 46);
             lblClase.Name = "lblClase";
             lblClase.Size = new Size(44, 20);
             lblClase.TabIndex = 0;
@@ -112,7 +112,7 @@
             // lblSelectedClass
             // 
             lblSelectedClass.AutoSize = true;
-            lblSelectedClass.Location = new Point(24, 42);
+            lblSelectedClass.Location = new Point(18, 51);
             lblSelectedClass.Name = "lblSelectedClass";
             lblSelectedClass.Size = new Size(225, 20);
             lblSelectedClass.TabIndex = 0;
@@ -120,7 +120,7 @@
             // 
             // btnRefreshAdminBookings
             // 
-            btnRefreshAdminBookings.Location = new Point(299, 38);
+            btnRefreshAdminBookings.Location = new Point(340, 51);
             btnRefreshAdminBookings.Name = "btnRefreshAdminBookings";
             btnRefreshAdminBookings.Size = new Size(94, 29);
             btnRefreshAdminBookings.TabIndex = 0;

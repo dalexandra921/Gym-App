@@ -41,7 +41,7 @@
             // lblActiveSubs
             // 
             lblActiveSubs.AutoSize = true;
-            lblActiveSubs.Location = new Point(98, 24);
+            lblActiveSubs.Location = new Point(45, 24);
             lblActiveSubs.Name = "lblActiveSubs";
             lblActiveSubs.Size = new Size(153, 20);
             lblActiveSubs.TabIndex = 0;
@@ -50,7 +50,7 @@
             // lblTotalBookings
             // 
             lblTotalBookings.AutoSize = true;
-            lblTotalBookings.Location = new Point(98, 65);
+            lblTotalBookings.Location = new Point(45, 65);
             lblTotalBookings.Name = "lblTotalBookings";
             lblTotalBookings.Size = new Size(128, 20);
             lblTotalBookings.TabIndex = 1;
@@ -59,7 +59,7 @@
             // lblTopClient
             // 
             lblTopClient.AutoSize = true;
-            lblTopClient.Location = new Point(98, 110);
+            lblTopClient.Location = new Point(45, 110);
             lblTopClient.Name = "lblTopClient";
             lblTopClient.Size = new Size(87, 20);
             lblTopClient.TabIndex = 2;
@@ -78,12 +78,12 @@
             // 
             gridClassStats.AllowUserToAddRows = false;
             gridClassStats.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridClassStats.Dock = DockStyle.Fill;
-            gridClassStats.Location = new Point(0, 0);
+            gridClassStats.Dock = DockStyle.Bottom;
+            gridClassStats.Location = new Point(0, 284);
             gridClassStats.Name = "gridClassStats";
             gridClassStats.ReadOnly = true;
             gridClassStats.RowHeadersWidth = 51;
-            gridClassStats.Size = new Size(859, 648);
+            gridClassStats.Size = new Size(859, 364);
             gridClassStats.TabIndex = 4;
             // 
             // panel1
@@ -95,7 +95,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(859, 163);
+            panel1.Size = new Size(859, 142);
             panel1.TabIndex = 5;
             // 
             // AdminStatsControl

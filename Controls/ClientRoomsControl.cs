@@ -37,6 +37,8 @@ namespace GymApp_final.Controls
             chkOnlyOpen.CheckedChanged += (_, __) => LoadData();
 
             LoadData();
+            //MessageBox.Show($"zones={_zones.Count}, rooms={_rooms.Count}");
+
         }
 
         private void LoadData()
@@ -77,6 +79,7 @@ namespace GymApp_final.Controls
 
                         // condiție VIP: dacă zona sau sala e VIP -> trebuie VIP
                         var requiresVip = zoneAccess == "VIP" || r.AccessLevel == "VIP";
+                        var locked = requiresVip && userAccess != "VIP";
 
                         return new
                         {
@@ -87,11 +90,10 @@ namespace GymApp_final.Controls
                             Acces = requiresVip ? "VIP" : "Standard",
                             Status = status,
                             IsOpen = isOpen,
+                            LockedText = locked ? "VIP (upgrade)" : "",
                             RequiresVip = requiresVip
                         };
                     })
-                    // filtrare VIP
-                    .Where(x => !x.RequiresVip || userAccess == "VIP")
                     // filtrare "doar deschise"
                     .Where(x => !onlyOpen || x.IsOpen)
                     .OrderBy(x => x.Zona)
@@ -106,8 +108,8 @@ namespace GymApp_final.Controls
                     gridRoomsClient.Columns["Id"].Visible = false;
                 if (gridRoomsClient.Columns.Contains("IsOpen"))
                     gridRoomsClient.Columns["IsOpen"].Visible = false;
-                if (gridRoomsClient.Columns.Contains("RequiresVip"))
-                    gridRoomsClient.Columns["RequiresVip"].Visible = false;
+                if (gridRoomsClient.Columns.Contains("LockedText"))
+                    gridRoomsClient.Columns["LockedText"].Visible = false;
             }
             catch (Exception ex)
             {

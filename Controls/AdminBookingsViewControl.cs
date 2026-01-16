@@ -34,6 +34,8 @@ namespace GymApp_final.Controls
             LoadData();
         }
 
+        
+        public void LoadData()
         {
             try
             {
@@ -43,12 +45,8 @@ namespace GymApp_final.Controls
 
                 _bookings = JsonFile.Load<Booking>("bookings.json");
 
-                // dacă vrei să validezi userii:
-                // _users = JsonFile.Load<Account>("users.json");
-
                 gridClassesAdmin.DataSource = null;
 
-                // arătăm clase într-un format mai friendly
                 var classRows = _classes.Select(c => new
                 {
                     c.Id,
@@ -182,5 +180,6 @@ namespace GymApp_final.Controls
                 MessageBox.Show("Eroare la ștergere rezervare:\n" + ex.Message);
             }
         }
+
     }
 }

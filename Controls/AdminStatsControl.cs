@@ -28,7 +28,7 @@ namespace GymApp_final.Controls
             LoadStats();
         }
 
-        private void LoadStats()
+        public void LoadStats()
         {
             try
             {
@@ -88,5 +88,6 @@ namespace GymApp_final.Controls
                 MessageBox.Show("Eroare la statistici:\n" + ex.Message);
             }
         }
+
     }
 }

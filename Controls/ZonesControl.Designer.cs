@@ -147,7 +147,7 @@
             btnAddZone.Name = "btnAddZone";
             btnAddZone.Size = new Size(94, 29);
             btnAddZone.TabIndex = 4;
-            btnAddZone.Text = "Adaugă";
+            btnAddZone.Text = "Add";
             btnAddZone.UseVisualStyleBackColor = true;
             // 
             // numCloseHour

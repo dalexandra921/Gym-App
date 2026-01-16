@@ -30,8 +30,8 @@
         {
             gridRoomsClient = new DataGridView();
             panelTop = new Panel();
-            chkOnlyOpen = new CheckBox();
             btnRefreshRooms = new Button();
+            chkOnlyOpen = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)gridRoomsClient).BeginInit();
             panelTop.SuspendLayout();
             SuspendLayout();
@@ -41,12 +41,12 @@
             gridRoomsClient.AllowUserToAddRows = false;
             gridRoomsClient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridRoomsClient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridRoomsClient.Dock = DockStyle.Fill;
-            gridRoomsClient.Location = new Point(0, 0);
+            gridRoomsClient.Dock = DockStyle.Bottom;
+            gridRoomsClient.Location = new Point(0, 227);
             gridRoomsClient.Name = "gridRoomsClient";
             gridRoomsClient.ReadOnly = true;
             gridRoomsClient.RowHeadersWidth = 51;
-            gridRoomsClient.Size = new Size(860, 587);
+            gridRoomsClient.Size = new Size(860, 360);
             gridRoomsClient.TabIndex = 0;
             // 
             // panelTop
@@ -56,8 +56,17 @@
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
-            panelTop.Size = new Size(860, 138);
+            panelTop.Size = new Size(860, 70);
             panelTop.TabIndex = 1;
+            // 
+            // btnRefreshRooms
+            // 
+            btnRefreshRooms.Location = new Point(705, 34);
+            btnRefreshRooms.Name = "btnRefreshRooms";
+            btnRefreshRooms.Size = new Size(94, 29);
+            btnRefreshRooms.TabIndex = 0;
+            btnRefreshRooms.Text = "Refresh";
+            btnRefreshRooms.UseVisualStyleBackColor = true;
             // 
             // chkOnlyOpen
             // 
@@ -68,15 +77,6 @@
             chkOnlyOpen.TabIndex = 0;
             chkOnlyOpen.Text = "Doar deschise acum";
             chkOnlyOpen.UseVisualStyleBackColor = true;
-            // 
-            // btnRefreshRooms
-            // 
-            btnRefreshRooms.Location = new Point(705, 34);
-            btnRefreshRooms.Name = "btnRefreshRooms";
-            btnRefreshRooms.Size = new Size(94, 29);
-            btnRefreshRooms.TabIndex = 0;
-            btnRefreshRooms.Text = "Refresh";
-            btnRefreshRooms.UseVisualStyleBackColor = true;
             // 
             // ClientRoomsControl
             // 

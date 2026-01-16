@@ -40,6 +40,11 @@ namespace GymApp_final.Controls
             LoadData();
         }
 
+        public void RefreshZones()
+        {
+            LoadData();
+        }
+
         private void LoadData()
         {
             try
