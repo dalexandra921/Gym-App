@@ -24,24 +24,21 @@ namespace GymApp_final
             var username = txtUsername.Text.Trim();
             var password = txtPassword.Text;
 
-            _logger.LogInformation("Login attempt: {Username}", username); //citesc cu hosting
+            _logger.LogInformation("Login attempt: {Username}", username);
 
             try
             {
                 var path = Path.Combine(AppContext.BaseDirectory, "users.json");
-
                 if (!File.Exists(path))
                 {
                     _logger.LogError("users.json missing at {Path}", path);
-                    MessageBox.Show("Fișierul users.json lipsește.", "Eroare",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lipsește users.json.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 var json = File.ReadAllText(path);
 
-                var accounts = JsonSerializer.Deserialize<List<Account>>(json)
-                               ?? new List<Account>();
+                var accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new List<Account>();
 
                 var acc = accounts.FirstOrDefault(a =>
                     string.Equals(a.Username, username, StringComparison.OrdinalIgnoreCase) &&
@@ -49,42 +46,36 @@ namespace GymApp_final
 
                 if (acc == null)
                 {
-                    _logger.LogWarning("Login failed for: {Username}", username);
-
+                    _logger.LogWarning("Login failed: {Username}", username);
                     MessageBox.Show("User/parolă greșite.", "Eroare",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                _logger.LogInformation("Login success for: {Username}, role={Role}", acc.Username, acc.Role);
+                _logger.LogInformation("Login success: {Username} role={Role}", acc.Username, acc.Role);
 
                 if (acc.Role == "Admin")
                 {
-                    var f = new AdminForm();
-                    f.FormClosed += (_, __) => this.Close();
-                    f.Show();
+                    var admin = Program.AppHost.Services.GetRequiredService<AdminForm>();
+                    admin.FormClosed += (_, __) => this.Close();
+                    admin.Show();
                     this.Hide();
                 }
                 else
                 {
-                    // ia logger-ul pentru ClientForm din DI
-                    var clientLogger = Program.AppHost.Services.GetRequiredService<ILogger<ClientForm>>();
-
-                    var f = new ClientForm(acc, clientLogger);
-                    f.FormClosed += (_, __) => this.Close();
-                    f.Show();
+                    var loggerClient = Program.AppHost.Services.GetRequiredService<ILogger<ClientForm>>();
+                    var client = new ClientForm(acc, loggerClient);
+                    client.FormClosed += (_, __) => this.Close();
+                    client.Show();
                     this.Hide();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error during login for {Username}", username);
-
+                _logger.LogError(ex, "Login error for {Username}", username);
                 MessageBox.Show("Eroare la login:\n" + ex.Message, "Eroare",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
 }

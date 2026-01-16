@@ -21,11 +21,11 @@ namespace GymApp_final
                     services.AddLogging(b => b.AddConsole()); //pt logging în consolã
 
                     services.AddTransient<LoginForm>(); //înregistreazã form-urile în DI si login ul nou
-
+                    services.AddTransient<AdminForm>();
                 })
                 .Build();//construie?te host-ul
 
-            // porne?te aplica?ia cu form-ul luat din DI
+            // porneste aplicatia cu form-ul luat din DI
             var login = AppHost.Services.GetRequiredService<LoginForm>();
             Application.Run(login);
 

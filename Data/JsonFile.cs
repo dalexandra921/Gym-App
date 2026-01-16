@@ -9,7 +9,7 @@ namespace GymApp_final.Data
 {
     public static class JsonFile
     {
-        public static List<T> Load<T>(string fileName)
+        public static List<T> Load<T>(string fileName) //crud modifica lista din memorie si salveaza in JSON
         {
             var path = Path.Combine(AppContext.BaseDirectory, fileName);
 

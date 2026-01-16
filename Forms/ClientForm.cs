@@ -43,11 +43,6 @@ namespace GymApp_final
             var rooms = new ClientRoomsControl(_account.Username);
             rooms.Dock = DockStyle.Fill;
             tabRooms.Controls.Add(rooms);
-
-            logger = Program.AppHost.Services.GetRequiredService<ILogger<ClientForm>>();
-            var form = new ClientForm(account, logger);
-            form.Show();
-
         }
     }
 }

@@ -39,14 +39,14 @@ namespace GymApp_final.Controls
 
                 var now = DateTime.Now;
 
-                // 1) Abonamente active
+                // abonamente active
                 var activeSubs = _subs.Count(s => s.EndDate >= now);
                 lblActiveSubs.Text = $"Abonamente active: {activeSubs}";
 
-                // 2) Rezervări totale
+                // rezervări totale
                 lblTotalBookings.Text = $"Rezervări totale: {_bookings.Count}";
 
-                // 3) Top client (cele mai multe rezervări)
+                // top client (cele mai multe rezervări)
                 var top = _bookings
                     .GroupBy(b => b.Username)
                     .Select(g => new { Username = g.Key, Count = g.Count() })
@@ -57,7 +57,7 @@ namespace GymApp_final.Controls
                     ? "Top client: -"
                     : $"Top client: {top.Username} ({top.Count} rezervări)";
 
-                // 4) Ocupare pe clase
+                // Ocupare pe clase
                 var rows = _classes
                     .OrderBy(c => c.StartTime)
                     .Select(c =>

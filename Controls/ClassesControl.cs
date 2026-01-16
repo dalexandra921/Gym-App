@@ -24,7 +24,7 @@ namespace GymApp_final.Controls
         public ClassesControl()
         {
             InitializeComponent();
-            _logger = Program.AppHost.Services.GetRequiredService<ILogger<ClassesControl>>();
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<ClassesControl>>(); //ia loggerul din DI
 
             cmbRequiredAccessLevel.Items.Clear();
             cmbRequiredAccessLevel.Items.Add("Standard");
@@ -33,6 +33,7 @@ namespace GymApp_final.Controls
 
             gridClasses.AutoGenerateColumns = true;
 
+            //leg butoanele de evenimente
             btnAddClass.Click += (_, __) => AddClass();
             btnUpdateClass.Click += (_, __) => UpdateClass();
             btnDeleteClass.Click += (_, __) => DeleteClass();
@@ -46,7 +47,7 @@ namespace GymApp_final.Controls
 
         public void RefreshTrainers()
         {
-            LoadTrainersIntoCombo();
+            LoadTrainersIntoCombo(); //reincarca antrenorii in combo din alt control
         }
 
         private void LoadClasses()
@@ -59,8 +60,6 @@ namespace GymApp_final.Controls
 
                 if (gridClasses.Columns.Contains("Id"))
                     gridClasses.Columns["Id"].Visible = false;
-
-
             }
             catch (Exception ex)
             {
@@ -87,7 +86,6 @@ namespace GymApp_final.Controls
 
             if (cmbRequiredAccessLevel.SelectedItem == null)
                 cmbRequiredAccessLevel.SelectedIndex = 0;
-
         }
 
         private void AddClass()

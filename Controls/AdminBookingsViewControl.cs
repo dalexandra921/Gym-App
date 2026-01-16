@@ -25,9 +25,9 @@ namespace GymApp_final.Controls
             gridClassesAdmin.AutoGenerateColumns = true;
             gridBookingsAdmin.AutoGenerateColumns = true;
 
-            // events
+            // events 
+            // (_, __) parametri ignorați
             gridClassesAdmin.SelectionChanged += (_, __) => LoadBookingsForSelectedClass();
-
             btnRefreshAdminBookings.Click += (_, __) => LoadData();
             btnDeleteBookingAdmin.Click += (_, __) => DeleteSelectedBooking();
 
@@ -40,12 +40,12 @@ namespace GymApp_final.Controls
             try
             {
                 _classes = JsonFile.Load<FitnessClass>("classes.json")
-                    .OrderBy(c => c.StartTime)
+                    .OrderBy(c => c.StartTime) //citesc din fisier și ordonez după data începerii
                     .ToList();
 
-                _bookings = JsonFile.Load<Booking>("bookings.json");
+                _bookings = JsonFile.Load<Booking>("bookings.json"); //citeste rezervările intr-o lista
 
-                gridClassesAdmin.DataSource = null;
+                gridClassesAdmin.DataSource = null; 
 
                 var classRows = _classes.Select(c => new
                 {
@@ -58,9 +58,9 @@ namespace GymApp_final.Controls
                 })
                 .ToList();
 
-                gridClassesAdmin.DataSource = classRows;
+                gridClassesAdmin.DataSource = classRows; //afiseaza clasele în grid
 
-                if (gridClassesAdmin.Columns.Contains("Id"))
+                if (gridClassesAdmin.Columns.Contains("Id")) //ascund id-ul clasei
                     gridClassesAdmin.Columns["Id"].Visible = false;
 
                 if (gridClassesAdmin.Columns.Contains("StartTime"))
@@ -77,7 +77,7 @@ namespace GymApp_final.Controls
         }
 
         private Guid? SelectedClassId()
-        {
+        {//cauta id-ul clasei selectate în grid
             try
             {
                 if (gridClassesAdmin.CurrentRow == null) return null;
@@ -113,6 +113,8 @@ namespace GymApp_final.Controls
 
                 lblSelectedClass.Text = $"Rezervări pentru: {cls.Title} ({cls.StartTime:dd.MM.yyyy HH:mm})";
 
+                //Ia doar rezervările care au ClassId egal cu clasa selectată,
+                //le sortează după data rezervării și creează rânduri
                 var rows = _bookings
                     .Where(b => b.ClassId == classId.Value)
                     .OrderBy(b => b.CreatedAt)
@@ -144,7 +146,7 @@ namespace GymApp_final.Controls
             try
             {
                 if (gridBookingsAdmin.CurrentRow == null) return null;
-                var cell = gridBookingsAdmin.CurrentRow.Cells["Id"]?.Value;
+                var cell = gridBookingsAdmin.CurrentRow.Cells["Id"]?.Value; //daca val selectata e id-ul
                 if (cell is Guid id) return id;
                 return null;
             }
@@ -169,7 +171,7 @@ namespace GymApp_final.Controls
                     "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                _bookings.RemoveAll(b => b.Id == bookingId.Value);
+                _bookings.RemoveAll(b => b.Id == bookingId.Value); //sterge rezervarea din listă
                 JsonFile.Save("bookings.json", _bookings);
 
                 // refresh view

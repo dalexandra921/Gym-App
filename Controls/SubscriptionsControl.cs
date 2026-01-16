@@ -37,6 +37,7 @@ namespace GymApp_final.Controls
 
             gridPlansClient.AutoGenerateColumns = true;
             gridMySubs.AutoGenerateColumns = true;
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<SubscriptionsControl>>();
 
             btnBuy.Click += (_, __) => BuySelectedPlan();
 

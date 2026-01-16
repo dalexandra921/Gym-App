@@ -42,7 +42,7 @@
             tabRooms = new TabPage();
             RoomsControl = new GymApp_final.Controls.RoomsControl();
             tabBookings = new TabPage();
-            adminBookingsViewControl1 = new GymApp_final.Controls.AdminBookingsViewControl();
+            AdminBookingsViewControl = new GymApp_final.Controls.AdminBookingsViewControl();
             tabMain.SuspendLayout();
             tabPlans.SuspendLayout();
             tabClasses.SuspendLayout();
@@ -185,7 +185,7 @@
             // 
             // tabBookings
             // 
-            tabBookings.Controls.Add(adminBookingsViewControl1);
+            tabBookings.Controls.Add(AdminBookingsViewControl);
             tabBookings.Location = new Point(4, 29);
             tabBookings.Name = "tabBookings";
             tabBookings.Padding = new Padding(3);
@@ -195,13 +195,13 @@
             tabBookings.UseVisualStyleBackColor = true;
             tabBookings.Enter += tabBookings_Enter;
             // 
-            // adminBookingsViewControl1
+            // AdminBookingsViewControl
             // 
-            adminBookingsViewControl1.Dock = DockStyle.Fill;
-            adminBookingsViewControl1.Location = new Point(3, 3);
-            adminBookingsViewControl1.Name = "adminBookingsViewControl1";
-            adminBookingsViewControl1.Size = new Size(829, 573);
-            adminBookingsViewControl1.TabIndex = 0;
+            AdminBookingsViewControl.Dock = DockStyle.Fill;
+            AdminBookingsViewControl.Location = new Point(3, 3);
+            AdminBookingsViewControl.Name = "AdminBookingsViewControl";
+            AdminBookingsViewControl.Size = new Size(829, 573);
+            AdminBookingsViewControl.TabIndex = 0;
             // 
             // AdminForm
             // 
@@ -239,6 +239,6 @@
         private TabPage tabRooms;
         private Controls.RoomsControl RoomsControl;
         private TabPage tabBookings;
-        private Controls.AdminBookingsViewControl adminBookingsViewControl1;
+        private Controls.AdminBookingsViewControl AdminBookingsViewControl;
     }
 }
