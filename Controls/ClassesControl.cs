@@ -1,5 +1,7 @@
 ﻿using GymApp_final.Data;
 using GymApp_final.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +19,12 @@ namespace GymApp_final.Controls
     {
         private List<FitnessClass> _classes = new();
         private List<Trainer> _trainers = new();
+        private readonly ILogger<ClassesControl> _logger;
 
         public ClassesControl()
         {
             InitializeComponent();
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<ClassesControl>>();
 
             cmbRequiredAccessLevel.Items.Clear();
             cmbRequiredAccessLevel.Items.Add("Standard");
@@ -116,6 +120,7 @@ namespace GymApp_final.Controls
                 });
 
                 JsonFile.Save("classes.json", _classes);
+                _logger.LogInformation("Class added: {Title} trainer={Trainer}", title, trainer.FullName);
                 LoadClasses();
 
                 txtClassTitle.Clear();
@@ -163,6 +168,7 @@ namespace GymApp_final.Controls
                 selected.RequiredAccessLevel = cmbRequiredAccessLevel.SelectedItem?.ToString() ?? "Standard";
 
                 JsonFile.Save("classes.json", _classes);
+                _logger.LogInformation("Class updated: id={Id}", selected.Id);
                 LoadClasses();
             }
             catch (Exception ex)
@@ -188,6 +194,7 @@ namespace GymApp_final.Controls
 
                 _classes.RemoveAll(c => c.Id == selected.Id);
                 JsonFile.Save("classes.json", _classes);
+                _logger.LogWarning("Class deleted: id={Id}", selected.Id);
                 LoadClasses();
 
                 txtClassTitle.Clear();

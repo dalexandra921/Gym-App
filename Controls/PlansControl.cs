@@ -1,5 +1,7 @@
 ﻿using GymApp_final.Data;
 using GymApp_final.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +17,13 @@ namespace GymApp_final.Controls
     public partial class PlansControl : UserControl
     {
         private List<SubscriptionPlan> _plans = new();
+        private readonly ILogger<PlansControl> _logger;
         public PlansControl()
         {
             InitializeComponent();
+
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<PlansControl>>();
+
             gridPlans.AutoGenerateColumns = true;
 
             btnAddPlan.Click += (_, __) => AddPlan();
@@ -93,6 +99,10 @@ namespace GymApp_final.Controls
                 });
 
                 JsonFile.Save("plans.json", _plans);
+
+                _logger.LogInformation("Plan added: {Name} access={Access} days={Days}",
+                    name, cmbPlanAccess.SelectedItem?.ToString(), (int)numValidDays.Value);
+
                 LoadPlans();
 
                 txtPlanName.Clear();
@@ -129,6 +139,7 @@ namespace GymApp_final.Controls
                 selected.Description = txtPlanDesc.Text.Trim();
                 selected.AccessLevel = cmbPlanAccess.SelectedItem?.ToString() ?? "Standard";
                 selected.ValidDays = (int)numValidDays.Value;
+                _logger.LogInformation("Plan updated: id={Id}", selected.Id);
 
                 JsonFile.Save("plans.json", _plans);
                 LoadPlans();
@@ -158,6 +169,7 @@ namespace GymApp_final.Controls
 
                 _plans.RemoveAll(p => p.Id == selected.Id);
                 JsonFile.Save("plans.json", _plans);
+                _logger.LogWarning("Plan deleted: id={Id}", selected.Id);
                 LoadPlans();
 
                 txtPlanName.Clear();

@@ -1,5 +1,6 @@
 ﻿using GymApp_final.Data;
 using GymApp_final.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace GymApp_final.Controls
     public partial class ZonesControl : UserControl
     {
         private List<Zone> _zones = new();
+        private readonly ILogger<TrainersControl> _logger;
         public ZonesControl()
         {
             InitializeComponent();

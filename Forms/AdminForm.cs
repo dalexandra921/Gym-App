@@ -8,14 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
 
 namespace GymApp_final
 {
     public partial class AdminForm : Form
     {
-        public AdminForm()
+        private readonly ILogger<AdminForm> _logger;
+
+        public AdminForm(ILogger<AdminForm> logger)
         {
             InitializeComponent();
+            _logger = logger;
+
+            _logger.LogInformation("AdminForm opened");
 
             tabRooms.Enter += tabRooms_Enter;
             tabBookings.Enter += tabBookings_Enter;

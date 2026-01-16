@@ -1,5 +1,7 @@
 ﻿using GymApp_final.Data;
 using GymApp_final.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +17,11 @@ namespace GymApp_final.Controls
     public partial class TrainersControl : UserControl
     {
         private List<Trainer> _trainers = new();
+        private readonly ILogger<TrainersControl> _logger;
         public TrainersControl()
         {
             InitializeComponent();
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<TrainersControl>>();
 
             gridTrainers.AutoGenerateColumns = true;
 
@@ -69,6 +73,7 @@ namespace GymApp_final.Controls
             });
 
             JsonFile.Save("trainers.json", _trainers);
+            _logger.LogInformation("Trainer added: {Name}", name);
             LoadTrainers();
 
             txtTrainerName.Clear();
@@ -113,6 +118,7 @@ namespace GymApp_final.Controls
 
             _trainers.RemoveAll(t => t.Id == selected.Id);
             JsonFile.Save("trainers.json", _trainers);
+            _logger.LogWarning("Trainer deleted: id={Id}", selected.Id);
             LoadTrainers();
         }
     }
