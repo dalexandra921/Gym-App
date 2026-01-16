@@ -9,12 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GymApp_final.Controls
 {
     public partial class MyBookingsControl : UserControl
     {
         private readonly string _username;
+        private readonly ILogger<MyBookingsControl> _logger;
         private List<Booking> _bookings = new();
         private List<FitnessClass> _classes = new();
 
@@ -22,6 +25,8 @@ namespace GymApp_final.Controls
         {
             InitializeComponent();
             _username = username;
+
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<MyBookingsControl>>();
 
             gridMyBookings.AutoGenerateColumns = true;
             btnCancel.Click += (_, __) => CancelBooking();
@@ -125,12 +130,16 @@ namespace GymApp_final.Controls
                 // caută clasa rezervată
                 var cls = _classes.FirstOrDefault(c => c.Id == booking.ClassId);
 
+                _logger.LogInformation("Cancel attempt: user={User}, bookingId={BookingId}", _username, bookingId.Value);
+
                 // dacă clasa a fost ștearsă, permiți anularea rezervării
                 if (cls == null)
                 {
                     if (MessageBox.Show("Clasa a fost ștearsă. Șterg rezervarea din istoric?",
                         "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                         return;
+
+                    _logger.LogInformation("Booking cancelled: user={User}, bookingId={BookingId}", _username, bookingId.Value);
 
                     _bookings.RemoveAll(b => b.Id == booking.Id && b.Username == _username);
                     JsonFile.Save("bookings.json", _bookings);
@@ -166,6 +175,7 @@ namespace GymApp_final.Controls
             catch (Exception ex)
             {
                 MessageBox.Show("Eroare la anulare:\n" + ex.Message);
+                _logger.LogError(ex, "Cancel failed: user={User}", _username);
             }
         }
 

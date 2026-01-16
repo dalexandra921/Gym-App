@@ -10,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GymApp_final.Controls
 {
     public partial class SubscriptionsControl : UserControl
     {
         private readonly string _username;
+        private readonly ILogger<SubscriptionsControl> _logger;
 
         private List<SubscriptionPlan> _plans = new();
         private List<UserSubscription> _subs = new();
@@ -23,9 +26,11 @@ namespace GymApp_final.Controls
         {
             InitializeComponent();
             _username = "";
+
+            _logger = Program.AppHost.Services.GetRequiredService<ILogger<SubscriptionsControl>>();
         }
 
-        // Constructor pentru runtime (primește username)
+        // Constructor pentru runtime
         public SubscriptionsControl(string username) : this()
         {
             _username = username;
@@ -129,6 +134,10 @@ namespace GymApp_final.Controls
                     EndDate = end
                 });
 
+                _logger.LogInformation("Subscription bought: user={User}, planId={PlanId}, end={EndDate}",
+                    _username, plan.Id, end);
+
+
                 JsonFile.Save("subscriptions.json", _subs);
 
                 MessageBox.Show($"Abonament cumpărat! Valabil până la {end:dd.MM.yyyy}.");
@@ -137,6 +146,7 @@ namespace GymApp_final.Controls
             catch (Exception ex)
             {
                 MessageBox.Show("Eroare la cumpărare:\n" + ex.Message);
+                _logger.LogError(ex, "Subscription buy failed: user={User}", _username);
             }
 
         }

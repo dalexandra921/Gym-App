@@ -1,17 +1,34 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Windows.Forms;
+
 namespace GymApp_final
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        public static IHost AppHost { get; private set; } = null!; //variabila globalã pentru host
+
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new LoginForm());
+
+            AppHost = Host.CreateDefaultBuilder() //container central de DI
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddLogging(b => b.AddConsole()); //pt logging în consolã
+
+                    services.AddTransient<LoginForm>(); //înregistreazã form-urile în DI si login ul nou
+
+                })
+                .Build();//construie?te host-ul
+
+            // porne?te aplica?ia cu form-ul luat din DI
+            var login = AppHost.Services.GetRequiredService<LoginForm>();
+            Application.Run(login);
+
         }
     }
 }
